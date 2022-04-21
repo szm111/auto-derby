@@ -12,16 +12,18 @@ class Plugin(auto_derby.Plugin):
             def exchange_score(self, ctx: Context) -> float:
                 ret = super().exchange_score(ctx)
                 es = self.effect_summary()
-                # increase for "プリティーミラー"
-                # if self.name == "プリティーミラー":
-                #    ret += 10
                 
+                # You can find all item settings at auto_derby/data/single_mode_items.jsonl.
+                # Suggest to use item id as identifier
+                
+                # Add more score for speed ankle weight. Only buy speed and power ankle weights
                 if es.training_vitality_debuff:
                     if TrainingType.SPEED in es.training_vitality_debuff:
                         ret += 50
                     elif TrainingType.POWER not in es.training_vitality_debuff:
                         ret = 0
                     
+                # Do not bug 20% Megaphone. Only buy 40% and 60%. 60% has very high priority.
                 if es.training_effect_buff and not es.training_vitality_debuff:
                     tp, value, _, _ = self.effects[0].values
                     if value < 30:
@@ -29,31 +31,36 @@ class Plugin(auto_derby.Plugin):
                     elif value>50:
                         ret += 100
                         
-                    
+                # All efficient books
                 if es.speed >5 or es.power>5 or es.statmia >5 or es.guts > 5 or es.wisdom > 5:
                     ret += 100
                     
+                # All horseshoe hammers.
                 if es.race_reward_buff:
                     ret += 100
                 
+                # Vitality items and amulet
                 if es.training_no_failure or (es.vitality and not es.mood):
                     ret += 100
                     
+                # Cakes
                 if es.mood:
                     ret += 100
                     
+                # BBQ and PHD hat
                 if self.id == 29 or self.id == 25:
                     ret += 100
                     
-                if es.training_levels or es.max_vitality:
+                # Only buy speed training level. 
+                if es.training_levels:
                     if self.id ==37:
                         ret+=100
                     else:
                         ret = 0
-
-                # increse for item can add condition "愛嬌○"
-                # if any(condition.get(i).name == "愛嬌○" for i in es.condition_add):
-                #     ret += 10
+                        
+                # Do not buy maximum vitality itemss.
+                if es.max_vitality:
+                    ret = 0
                 return ret
 
             # item will not be exchanged from shop if
@@ -73,14 +80,8 @@ class Plugin(auto_derby.Plugin):
             ) -> float:
                 ret = super().effect_score(ctx, command, summary)
                 es = self.effect_summary()
-                # increase for "スピードアンクルウェイト"
-                #if (
-                #    isinstance(command, TrainingCommand)
-                #    and command.training.type == TrainingType.SPEED
-                #    and self.name == "スピードアンクルウェイト"
-                #):
-                #    ret += 10
                 
+                # There are bugs in detecting race in URA. Use this as a temorary solution to use horseshoe hammer
                 if isinstance(command, RaceCommand) and ctx.date[0] in [0,4] and es.race_reward_buff:
                     if summary.race_reward_buff:
                         ret += (es.race_reward_buff.total_rate()*100 - summary.race_reward_buff.total_rate()*100) *3
@@ -92,7 +93,7 @@ class Plugin(auto_derby.Plugin):
             def expected_effect_score(self, ctx: Context, command: Command) -> float:
                 ret = super().expected_effect_score(ctx, command)
                 es = self.effect_summary()
-                # reduce when training speed > 30
+                # reduce when training speed > 13
                 if isinstance(command, TrainingCommand) and command.training.speed > 13:
                     ret -= self.original_price * 0.5
                 # increase  when race grade lower than G1

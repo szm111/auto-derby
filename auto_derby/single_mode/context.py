@@ -333,7 +333,7 @@ class Context:
         
         self.do_shopping = False
         self.do_recognize = False
-        self.long_distance_style = RuningStyle.LEAD
+        self.long_distance_style = RuningStyle.MIDDLE
         self.default_running_style = RuningStyle.LEAD
         
         self.skills = list([])
