@@ -14,6 +14,8 @@ class Plugin(auto_derby.Plugin):
         # If you want to add skills not in the list, please disable "no_skill_prompt" in "afk" plugin. When detect skills not in the list, it will automatically add it to label file and skill file.
         # You just need to update attribute by yourself.
         
+        # Skill picking up only happens at turn 22,31,43,55. Please go to auto_derby/jobs/nurturing to change it.
+        
         # pick = 3 means will be picked no matter what default running style.
         # pick = 2 means it will be picked only when this skill running style is equal to your default running style
         # pick =1 TODO

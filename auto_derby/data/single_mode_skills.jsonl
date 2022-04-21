@@ -121,3 +121,5 @@
 {"name": "勢い任せ", "pick": 2, "running_type": 1, "distance_type": 0, "skill_type": 3}
 {"name": "闘争心", "pick": 0, "running_type": 0, "distance_type": 3, "skill_type": 1}
 {"name": "深呼吸", "pick": 0, "running_type": 0, "distance_type": 4, "skill_type": 3}
+{"name": "様子見", "pick": 0, "running_type": 0, "distance_type": 1, "skill_type": 3}
+{"name": "展開窺い", "pick": 0, "running_type": 0, "distance_type": 2, "skill_type": 3}

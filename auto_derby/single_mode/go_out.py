@@ -86,8 +86,8 @@ class Option:
         mood = mathtools.interpolate(
             ctx.speed,
             (
-                (0, 15),
-                (600, 15),
+                (0, 30),
+                (300, 15),
                 (900, 15),
                 (1200, 15),
             ),

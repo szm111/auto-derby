@@ -6,7 +6,7 @@ from __future__ import annotations
 import logging
 from typing import Callable, Optional, Text
 
-from ... import action, templates, terminal
+from ... import action, templates, terminal, scenes
 from ...scenes import PaddockScene
 from ...scenes.single_mode import RaceMenuScene
 from .. import Context, Race, RaceResult
@@ -19,21 +19,20 @@ _LOGGER = logging.getLogger(__name__)
 
 
 def _choose_running_style(ctx: Context, race1: Race) -> None:
-    scene = PaddockScene.enter(ctx)
     style_scores = sorted(race1.style_scores_v2(ctx), key=lambda x: x[1], reverse=True)
 
     for style, score in style_scores:
         _LOGGER.info("running style score:\t%.2f:\t%s", score, style)
 
-    unsorted_score = tuple(i for _, i in race1.style_scores_v2(ctx))
     if race1.distance > 2600:
-        scene.choose_runing_style(ctx.long_distance_style)
-    elif unsorted_score[2] < 10000 and race1.distance >= 2400:
-        scene.choose_runing_style(style_scores[0][0])
+        style = ctx.long_distance_style
     else:
-        scene.choose_runing_style(ctx.default_running_style)
-        #scene.choose_runing_style(RuningStyle.HEAD)
-    # scene.choose_runing_style(style_scores[0][0])
+        style = ctx.default_running_style
+        ctx.scene = scenes.UnknownScene()
+    if ctx.previous_running_style != style:
+        scene = PaddockScene.enter(ctx)
+        scene.choose_runing_style(style)
+        ctx.previous_running_style = style
 
 
 _RACE_ORDER_TEMPLATES = {

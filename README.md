@@ -15,7 +15,9 @@
 [育成结果 Nurturing result](https://github.com/NateScarlet/auto-derby/wiki/Nurturing-result)
 ## 使用前提示
 本脚本新增内容为自用，非常用户不友好，请耐心等待更新。
-只需要在plugin中添加custom_setting就是我平时养马的设定
+每把养完需要手点技能重新开始，自动续航的更新遥遥无期。
+只需要在plugin中添加custom_setting就是我平时养马的设定。
+本人懒，不接受一切提问，自己看自己改。
 
 ## 功能
 

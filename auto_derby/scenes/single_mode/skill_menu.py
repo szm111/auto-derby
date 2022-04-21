@@ -152,7 +152,7 @@ class SkillMenuScene(Scene):
             #    break
         if pick:
             action.tap(rp.vector2((220, 680), 466))
-            time.sleep(2.0)
+            time.sleep(3.0)
             action.tap(rp.vector2((280, 780), 466))
-            time.sleep(2.0)
+            time.sleep(3.0)
             action.tap(rp.vector2((280, 780), 466))

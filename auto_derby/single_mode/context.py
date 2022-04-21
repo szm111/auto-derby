@@ -335,6 +335,8 @@ class Context:
         self.do_recognize = False
         self.long_distance_style = RuningStyle.MIDDLE
         self.default_running_style = RuningStyle.LEAD
+        self.previous_running_style = None
+        self.disable_shopping_on_race_day = False
         
         self.skills = list([])
 

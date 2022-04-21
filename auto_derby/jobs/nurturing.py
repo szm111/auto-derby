@@ -145,7 +145,7 @@ def _handle_turn(ctx: Context):
             handle_shop = False
             break
             
-    if handle_shop or ctx.do_shopping:
+    if not ctx.disable_shopping_on_race_day or handle_shop or ctx.do_shopping:
         _handle_item_list(ctx, scene)
         _handle_shop(ctx, scene)
         
