@@ -90,25 +90,30 @@ class Plugin(auto_derby.Plugin):
 
                 return ret
 
+            # If effect_score is higher than expected_effect_score, it will use the item
             def expected_effect_score(self, ctx: Context, command: Command) -> float:
                 ret = super().expected_effect_score(ctx, command)
                 es = self.effect_summary()
                 # reduce when training speed > 13
                 if isinstance(command, TrainingCommand) and command.training.speed > 13:
                     ret -= self.original_price * 0.5
-                # increase  when race grade lower than G1
+                
+                # increase when race grade lower than G1.
                 if (
                     isinstance(command, RaceCommand)
                     and command.race.grade > command.race.GRADE_G1
                 ):
                     ret += 10
-                    
+                
+                # URA, should use item. They should be detected as G1 but there are bugs.
                 if isinstance(command, RaceCommand) and ctx.date[0] == 4 and es.race_reward_buff:
                     ret =0
                     return ret
                     
+                # Use small horseshoe hammer when it is G1
                 if isinstance(command, RaceCommand) and command.race.grade == command.race.GRADE_G1 and es.race_reward_buff and self.id == 51:
                     ret =0
+                # Use big horseshoe hammer when it is G1 and we have more than 2 (Maintain 2 for URA)
                 if isinstance(command, RaceCommand) and command.race.grade == command.race.GRADE_G1 and es.race_reward_buff and self.id == 52:
                     if ctx.items.get(self.id).quantity >= 3 or ctx.date[0] in [0,4]:
                         ret =0

@@ -13,6 +13,9 @@
 [FAQ](https://github.com/NateScarlet/auto-derby/wiki/FAQ)
 
 [育成结果 Nurturing result](https://github.com/NateScarlet/auto-derby/wiki/Nurturing-result)
+## 使用前提示
+本脚本新增内容为自用，非常用户不友好，请耐心等待更新。
+只需要在plugin中添加custom_setting就是我平时养马的设定
 
 ## 功能
 
