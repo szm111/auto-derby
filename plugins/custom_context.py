@@ -7,7 +7,7 @@ class Context(single_mode.Context):
     def __init__(self) -> None:
         super().__init__()
         # Running style for distance longer than 2600
-        self.long_distance_style = RuningStyle.LEAD
+        self.long_distance_style = RuningStyle.HEAD
         # Default Running Style
         self.default_running_style = RuningStyle.LEAD
         # Do not handle item and go shopping on race day.
