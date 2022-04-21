@@ -20,7 +20,7 @@ from PIL.Image import Image
 from PIL.Image import fromarray as image_from_array
 
 from .. import imagetools, mathtools, ocr, scenes, template, templates, texttools
-from ..constants import Mood, TrainingType
+from ..constants import Mood, TrainingType, RuningStyle
 from . import condition
 
 _LOGGER = logging.getLogger(__name__)
@@ -151,7 +151,7 @@ def _recognize_status(img: Image) -> Tuple[int, Text]:
     text_img = cv2.medianBlur(text_img, 5)
     h = cv_img.shape[0]
     imagetools.fill_area(
-        text_img, (0,), mode=cv2.RETR_LIST, size_lt=round(h * 0.2**2)
+        text_img, (0,), mode=cv2.RETR_LIST, size_lt=round(h * 0.2 ** 2)
     )
 
     if os.getenv("DEBUG") == __name__:
@@ -193,18 +193,8 @@ def _recognize_property(img: Image) -> int:
 
 def _recognize_scenario(rp: mathtools.ResizeProxy, img: Image) -> Text:
     spec = (
-        (
-            template.Specification(
-                templates.SINGLE_MODE_CLIMAX_GRADE_POINT_ICON, threshold=0.8
-            ),
-            Context.SCENARIO_CLIMAX,
-        ),
-        (
-            template.Specification(
-                templates.SINGLE_MODE_CLIMAX_RANK_POINT_ICON, threshold=0.8
-            ),
-            Context.SCENARIO_CLIMAX,
-        ),
+        (templates.SINGLE_MODE_CLIMAX_GRADE_POINT_ICON, Context.SCENARIO_CLIMAX),
+        (templates.SINGLE_MODE_CLIMAX_RANK_POINT_ICON, Context.SCENARIO_CLIMAX),
         (templates.SINGLE_MODE_AOHARU_CLASS_DETAIL_BUTTON, Context.SCENARIO_AOHARU),
         (templates.SINGLE_MODE_CLASS_DETAIL_BUTTON, Context.SCENARIO_URA),
     )
@@ -235,9 +225,9 @@ class Context:
     MOOD_GOOD = Mood.GOOD
     MOOD_VERY_GOOD = Mood.VERY_GOOD
 
-    CONDITION_OVERWEIGHT = 4
     CONDITION_HEADACHE = 5
-    CONDITION_CHARM = 8
+    CONDITION_OVERWEIGHT = 4
+    SKIN_ILLNESS = 6
 
     STATUS_S = (8, "S")
     STATUS_A = (7, "A")
@@ -340,6 +330,13 @@ class Context:
         self.items = item.ItemList()
         self.items_last_updated_turn = 0
         self.item_history = item.History()
+        
+        self.do_shopping = False
+        self.do_recognize = False
+        self.long_distance_style = RuningStyle.LEAD
+        self.default_running_style = RuningStyle.LEAD
+        
+        self.skills = list([])
 
     def target_grade_point(self) -> int:
         if self.date[1:] == (0, 0):
@@ -694,7 +691,7 @@ g.context_class = Context
 _CONDITION_TEMPLATES = {
     templates.SINGLE_MODE_CONDITION_HEADACHE: Context.CONDITION_HEADACHE,
     templates.SINGLE_MODE_CONDITION_OVERWEIGHT: Context.CONDITION_OVERWEIGHT,
-    templates.SINGLE_MODE_CONDITION_CHARM: Context.CONDITION_CHARM,
+    templates.SINGLE_MODE_CONDITION_SKIN_ILLNESS: Context.SKIN_ILLNESS,
 }
 
 

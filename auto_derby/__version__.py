@@ -9,12 +9,12 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 
 from datetime import datetime
 
-VERSION = "1.21.2"
-RELEASE_DATE = datetime.fromtimestamp(1649695648)
-LAST_GIT_COMMIT_DESCRIBE = "v1.21.1-2-g37d273e"
-LAST_GIT_COMMIT_HASH = "37d273ef8d3013d70b459eaa096ac7662809cb44"
+VERSION = "1.17.0"
+RELEASE_DATE = datetime.fromtimestamp(1647789598)
+LAST_GIT_COMMIT_DESCRIBE = "v1.16.0-7-g57e7c4b"
+LAST_GIT_COMMIT_HASH = "57e7c4bd00fd94b54c9bf251d93483bce3baa9ce"
 LAST_GIT_COMMIT_AUTHOR_NAME = "NateScarlet"
 LAST_GIT_COMMIT_AUTHOR_EMAIL = "NateScarlet@Gmail.com"
-LAST_GIT_COMMIT_AUTHOR_DATE = datetime.fromtimestamp(1649695602)
-LAST_GIT_COMMIT_SUBJECT = "fix(single-mode): race_campaign: update data"
+LAST_GIT_COMMIT_AUTHOR_DATE = datetime.fromtimestamp(1647789375)
+LAST_GIT_COMMIT_SUBJECT = "fix(single-mode): error while recognizing go out menu"
 LAST_GIT_COMMIT_BODY = ""

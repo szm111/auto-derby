@@ -13,7 +13,7 @@ import numpy as np
 from PIL.Image import Image
 from PIL.Image import open as open_image
 
-from . import clients, imagetools, mathtools, filetools
+from . import clients, imagetools, mathtools, filetools, templates
 
 LOGGER = logging.getLogger(__name__)
 
@@ -113,6 +113,12 @@ class Specification:
             cv_match_img = np.asarray(match_img.convert("L"))
             match_min, match_max, _, _ = cv2.minMaxLoc(cv_match_img)
             tmpl_min, tmpl_max, _, _ = cv2.minMaxLoc(cv_tmpl_img)
+            
+            #if self.name == templates.SINGLE_MODE_SHOP_ITEM_PRICE:
+            #    cv2.imshow("tmpl_img", cv_tmpl_img)
+            #    cv2.imshow("match_img", cv_match_img)
+            #    cv2.waitKey()
+            #    cv2.destroyAllWindows()
 
             max_diff = (match_max - tmpl_max) / 255.0
             min_diff = (match_min - tmpl_min) / 255.0
@@ -175,13 +181,15 @@ def _match_one(
         _, max_val, _, max_loc = cv2.minMaxLoc(res, mask=mask)
         x, y = max_loc
         client_pos = reverse_rp.vector2((x, y), TARGET_WIDTH)
-        if max_val < tmpl.threshold or not tmpl.match(img, client_pos):
+        if max_val < tmpl.threshold:
             LOGGER.debug(
                 "not match: tmpl=%s, pos=%s, similarity=%.3f", tmpl, max_loc, max_val
             )
             break
-        LOGGER.info("match: tmpl=%s, pos=%s, similarity=%.2f", tmpl, max_loc, max_val)
-        yield (tmpl, client_pos)
+            
+        if tmpl.match(img, client_pos):
+            LOGGER.info("match: tmpl=%s, pos=%s, similarity=%.2f", tmpl, max_loc, max_val)
+            yield (tmpl, client_pos)
 
         # mark position unavailable to avoid overlap
         cv_pos[max(0, y - tmpl_h) : y + tmpl_h, max(0, x - tmpl_w) : x + tmpl_w] = 0

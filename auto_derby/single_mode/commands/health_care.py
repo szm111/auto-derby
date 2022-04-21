@@ -30,6 +30,7 @@ def default_score(ctx: Context) -> float:
                 (
                     Context.CONDITION_HEADACHE,
                     Context.CONDITION_OVERWEIGHT,
+                    Context.SKIN_ILLNESS,
                 )
             ).intersection(ctx.conditions)
         )

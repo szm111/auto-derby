@@ -6,3 +6,4 @@ from .aoharu_competitor import AoharuCompetitorScene
 from .aoharu_main import AoharuMainScene
 from .shop import ShopScene
 from .item_menu import ItemMenuScene
+from .skill_menu import SkillMenuScene

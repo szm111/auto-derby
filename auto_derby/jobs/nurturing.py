@@ -4,9 +4,10 @@ from __future__ import annotations
 
 import logging
 import time
+from auto_derby.single_mode.commands import RaceCommand
 from typing import Callable, Iterator, List, Text, Tuple, Union
 
-from .. import action, config, template, templates
+from .. import action, config, template, templates, terminal, scenes
 from ..constants import RacePrediction
 from ..scenes.single_mode import (
     AoharuBattleConfirmScene,
@@ -14,6 +15,7 @@ from ..scenes.single_mode import (
     AoharuMainScene,
     CommandScene,
     RaceMenuScene,
+    SkillMenuScene,
     RaceTurnsIncorrect,
     ShopScene,
 )
@@ -39,6 +41,7 @@ def _handle_option():
 
 
 def _handle_shop(ctx: Context, cs: CommandScene):
+    ctx.do_shopping = False
     if not (cs.has_shop and ctx.shop_coin):
         return
     scene = ShopScene.enter(ctx)
@@ -54,6 +57,8 @@ def _handle_shop(ctx: Context, cs: CommandScene):
     )
 
     LOGGER.info("shop items")
+    LOGGER.info(ctx.shop_coin)
+    LOGGER.info(scores_of_items)
     cart_items: List[item.Item] = []
     total_price = 0
     for s, es, i in scores_of_items:
@@ -70,24 +75,36 @@ def _handle_shop(ctx: Context, cs: CommandScene):
             cart_items.append(i)
             total_price += i.price
         LOGGER.info("score:\t%2.2f/%2.2f:\t%s\t%s", s, es, i, status)
-    scene.exchange_items(ctx, cart_items)
+    remain_size = scene.exchange_items(ctx, cart_items)
+    if remain_size < len(cart_items):
+        rp = action.resize_proxy()
+        action.tap(rp.vector2((220, 680), 466))
+        time.sleep(2.0)
+        action.tap(rp.vector2((80, 780), 466))
 
     cs.enter(ctx)
-    if any(i.should_use_directly(ctx) for i in cart_items):
-        cs.recognize(ctx)
+    #if any(i.should_use_directly(ctx) for i in cart_items):
+    #    cs.recognize(ctx)
     return
 
 
 def _handle_item_list(ctx: Context, cs: CommandScene):
     if not cs.has_shop:
         return
-    if ctx.items_last_updated_turn == 0:
+    if ctx.items_last_updated_turn == 0 or ctx.do_recognize:
         scene = ItemMenuScene.enter(ctx)
         scene.recognize(ctx)
-    items = tuple(i for i in ctx.items if i.should_use_directly(ctx))
+        ctx.do_recognize = False
+    items = tuple(i for i in ctx.items.full_list() if i.should_use_directly(ctx))
     if items:
         scene = ItemMenuScene.enter(ctx)
         scene.use_items(ctx, items)
+    cs.enter(ctx)
+    return
+    
+def _handle_skill(ctx: Context, cs: CommandScene, blue_onlye = False):
+    scene = SkillMenuScene.enter(ctx)
+    scene.learn_skill(ctx, blue_onlye)
     cs.enter(ctx)
     return
 
@@ -119,10 +136,27 @@ class _CommandPlan:
 def _handle_turn(ctx: Context):
     scene = CommandScene.enter(ctx)
     scene.recognize(ctx)
-    _handle_item_list(ctx, scene)
+
     # see training before shop
     turn_commands = tuple(commands.from_context(ctx))
-    _handle_shop(ctx, scene)
+    handle_shop = True
+    for turn_command in turn_commands:
+        if isinstance(turn_command, RaceCommand):
+            handle_shop = False
+            break
+            
+    if handle_shop or ctx.do_shopping:
+        _handle_item_list(ctx, scene)
+        _handle_shop(ctx, scene)
+        
+    if ctx.items_last_updated_turn == 0:
+        _handle_item_list(ctx, scene)
+        
+    if ctx.turn_count_v2() in [22,31]:
+        _handle_skill(ctx, scene)
+    if ctx.turn_count_v2() in [43,55]:
+        _handle_skill(ctx, scene, True)
+        _handle_skill(ctx, scene)
     ctx.next_turn()
     LOGGER.info("context: %s", ctx)
     for i in ctx.items:
@@ -211,9 +245,11 @@ def _handle_target_race(ac: _ActionContext):
         scene = RaceMenuScene().enter(ctx)
     except RaceTurnsIncorrect:
         scene = RaceMenuScene().enter(ctx)
-    _CommandPlan(
+    cp = _CommandPlan(
         ctx, commands.RaceCommand(scene.first_race(ctx), selected=True)
-    ).execute(ctx)
+    )
+    LOGGER.info("score:\t%2.2f\t%s;%s", cp.score, cp.command.name(), cp.explain())
+    cp.execute(ctx)
 
 
 def _ac_handle_option(ac: _ActionContext):
@@ -283,6 +319,11 @@ def _handle_aoharu_team_race(ac: _ActionContext):
 def _template_actions(ctx: Context) -> Iterator[Tuple[_Template, _Handler]]:
     yield templates.CONNECTING, _pass
     yield templates.RETRY_BUTTON, _tap
+    yield templates.RETURN_BUTTON, _tap
+    yield templates.CLOSE_BUTTON, _tap
+    yield templates.CANCEL_BUTTON, _tap
+    yield templates.GREEN_OK_BUTTON, _tap
+    yield templates.GREEN_TIGHT_OK_BUTTON, _tap
     yield templates.SINGLE_MODE_COMMAND_TRAINING, _ac_handle_turn
     yield templates.SINGLE_MODE_FANS_NOT_ENOUGH, _handle_fan_not_enough
     yield templates.SINGLE_MODE_TARGET_RACE_NO_PERMISSION, _handle_fan_not_enough
@@ -328,3 +369,6 @@ def nurturing():
             spec[_spec_key(tmpl)](ac)
         except _SingleModeEnd:
             break
+        except TimeoutError:
+            ctx.scene = scenes.UnknownScene()
+            continue

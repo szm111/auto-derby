@@ -9,7 +9,7 @@ from typing import Text
 from ... import action, template
 from ...scenes import UnknownScene
 from ...scenes.single_mode import TrainingScene
-from .. import Context, Training, item
+from .. import Context, Training
 from .command import Command
 from .globals import g
 
@@ -37,16 +37,9 @@ class TrainingCommand(Command):
         return self.training.score(ctx)
 
 
-def _item_can_improve_failure_rate(i: item.Item):
-    es = i.effect_summary()
-    return es.vitality > 0 or es.training_no_failure
-
-
 def default_ignore_training_commands(ctx: Context) -> bool:
-    if any(_item_can_improve_failure_rate(i) for i in ctx.items):
-        return False
-    if ctx.vitality < 0.2:
-        return True
+    #if ctx.vitality < 0.2:
+    #    return True
     return False
 
 

@@ -97,6 +97,7 @@ class CommandScene(Scene):
             "single-mode-training",
             "single-mode-shop",
             "single-mode-race-menu",
+            "single-mode-skill-menu",
         ):
             action.wait_tap_image(templates.RETURN_BUTTON)
         if name == "single-mode-item-menu":
@@ -104,12 +105,15 @@ class CommandScene(Scene):
         if name == "single-mode-go-out-menu":
             action.wait_tap_image(templates.CANCEL_BUTTON)
 
-        action.wait_image(
-            templates.SINGLE_MODE_COMMAND_TRAINING,
-            templates.SINGLE_MODE_FORMAL_RACE_BANNER,
-            templates.SINGLE_MODE_URA_FINALS,
-            timeout=30,
-        )
+        try:
+            action.wait_image(
+                templates.SINGLE_MODE_COMMAND_TRAINING,
+                templates.SINGLE_MODE_FORMAL_RACE_BANNER,
+                templates.SINGLE_MODE_URA_FINALS,
+                timeout=5,
+            )
+        except TimeoutError:
+            CommandScene.enter(ctx)
 
         return cls()
 
@@ -190,8 +194,10 @@ class CommandScene(Scene):
             if local.next_retry_count > max_retry:
                 _recognize_static()
                 return
-            with ocr.prompt_disabled(False), terminal.prompt_disabled(True):
-                _recognize_static()
+            #with ocr.prompt_disabled(False), terminal.prompt_disabled(True):
+            #    _recognize_static()
+                
+            _recognize_static()
 
         action.run_with_retry(
             _recognize_static_with_retry,
@@ -203,7 +209,7 @@ class CommandScene(Scene):
             return
         if not ctx.fan_count:
             self.recognize_class(ctx)
-        if ctx.turf == ctx.STATUS_NONE or ctx.date[1:] == (4, 1):
+        if ctx.turf == ctx.STATUS_NONE or ctx.date[1:] == (4, 1) or self.has_health_care:
             self.recognize_status(ctx)
         if not ctx.go_out_options:
             self.recognize_go_out_options(ctx)

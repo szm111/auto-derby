@@ -10,7 +10,7 @@ from typing import Any, Dict, Iterator, Sequence, Text, Tuple
 import cv2
 from PIL.Image import Image
 
-from ... import action, imagetools, mathtools, ocr, template, templates
+from ... import action, imagetools, mathtools, ocr, template, templates, terminal
 from ...single_mode import Context, item
 from ...single_mode.item import Item
 from ..scene import Scene, SceneHolder
@@ -55,7 +55,10 @@ def _recognize_price(rp: mathtools.ResizeProxy, item_img: Image) -> int:
         cv2.waitKey()
         cv2.destroyAllWindows()
     text = ocr.text(imagetools.pil_image(binary_img))
-    return int(text)
+    try:
+        return int(text)
+    except Exception as e:
+        return 100
 
 
 def _recognize_item(rp: mathtools.ResizeProxy, img: Image) -> Item:
@@ -67,7 +70,8 @@ def _recognize_item(rp: mathtools.ResizeProxy, img: Image) -> Item:
 def _recognize_menu(img: Image) -> Iterator[Tuple[Item, Tuple[int, int]]]:
     rp = mathtools.ResizeProxy(img.width)
 
-    y_min = rp.vector(365, 540)
+    #y_min = rp.vector(365, 540)
+    y_min = rp.vector(385, 540)
     y_max = rp.vector(815, 540)
     for _, pos in sorted(
         template.match(img, templates.SINGLE_MODE_SHOP_ITEM_PRICE),
@@ -129,13 +133,16 @@ class ShopScene(Scene):
             self.items += new_items
             if static:
                 break
+        LOGGER.info(self.items)
+        terminal.pause("items")
         if not self.items:
             _LOGGER.warning("not found any items")
+            #terminal.pause("can't find item")
 
     def recognize(self, ctx: Context, *, static: bool = False) -> None:
         self._recognize_items(static)
 
-    def exchange_items(self, ctx: Context, items: Sequence[Item]) -> None:
+    def exchange_items(self, ctx: Context, items: Sequence[Item]) -> int:
         remains = list(items)
 
         def _exchange_visible_items() -> None:
@@ -151,21 +158,22 @@ class ShopScene(Scene):
                 action.tap(pos)
                 ctx.shop_coin -= match.price
                 remains.remove(match)
-                tmpl, _ = action.wait_image(
-                    templates.SINGLE_MODE_SHOP_USE_CONFIRM_BUTTON,
-                    templates.CLOSE_BUTTON,
-                )
-                if (
-                    tmpl.name == templates.SINGLE_MODE_SHOP_USE_CONFIRM_BUTTON
-                    and match.should_use_directly(ctx)
-                ):
-                    _LOGGER.info("use: %s", match)
-                    action.wait_tap_image(templates.SINGLE_MODE_SHOP_USE_CONFIRM_BUTTON)
-                    action.wait_tap_image(templates.SINGLE_MODE_ITEM_USE_BUTTON)
-                    ctx.item_history.append(ctx, match)
-                else:
-                    action.wait_tap_image(templates.CLOSE_BUTTON)
-                    ctx.items.put(match.id, 1)
+                ctx.items.put(match.id, 1)
+                #tmpl, _ = action.wait_image(
+                #    templates.SINGLE_MODE_SHOP_USE_CONFIRM_BUTTON,
+                #    templates.CLOSE_BUTTON,
+                #)
+                #if (
+                #    tmpl.name == templates.SINGLE_MODE_SHOP_USE_CONFIRM_BUTTON
+                #    and match.should_use_directly(ctx)
+                #):
+                #    _LOGGER.info("use: %s", match)
+                #    action.wait_tap_image(templates.SINGLE_MODE_SHOP_USE_CONFIRM_BUTTON)
+                #    action.wait_tap_image(templates.SINGLE_MODE_ITEM_USE_BUTTON)
+                #    ctx.item_history.append(ctx, match)
+                #else:
+                #    action.wait_tap_image(templates.CLOSE_BUTTON)
+                #    ctx.items.put(match.id, 1)
                 # wait animation
                 action.wait_image_stable(templates.RETURN_BUTTON)
                 return _exchange_visible_items()
@@ -179,6 +187,9 @@ class ShopScene(Scene):
         self._scroll.complete()
         for i in remains:
             _LOGGER.warning("exchange remain: %s", i)
+            ctx.do_shopping = True
+            
+        return len(remains)
 
     def to_dict(self) -> Dict[Text, Any]:
         d: Dict[Text, Any] = {

@@ -35,7 +35,7 @@ def _title_image(rp: mathtools.ResizeProxy, item_img: Image) -> Image:
 
 
 def _recognize_quantity(rp: mathtools.ResizeProxy, item_img: Image) -> int:
-    bbox = rp.vector4((179, 43, 382, 64), 540)
+    bbox = rp.vector4((179, 43, 200, 64), 540)
     cv_img = imagetools.cv_image(
         imagetools.resize(item_img.crop(bbox).convert("L"), height=32)
     )
@@ -52,7 +52,7 @@ def _recognize_quantity(rp: mathtools.ResizeProxy, item_img: Image) -> int:
 
 def _recognize_disabled(rp: mathtools.ResizeProxy, item_img: Image) -> bool:
     try:
-        next(template.match(item_img, templates.SINGLE_MODE_ITEM_MENU_USE_BUTTON))
+        next(template.match(item_img, templates.SINGLE_MODE_ITEM_ADD_BUTTON))
         return False
     except StopIteration:
         return True
@@ -70,7 +70,7 @@ def _recognize_menu(img: Image) -> Iterator[Tuple[Item, Tuple[int, int]]]:
 
     min_y = rp.vector(130, 540)
     for _, pos in sorted(
-        template.match(img, templates.SINGLE_MODE_ITEM_MENU_CURRENT_QUANTITY),
+        template.match(img, templates.SINGLE_MODE_ITEM_MENU_CURRENT_QUANTITY, templates.SINGLE_MODE_ITEM_MENU_CURRENT_QUANTITY_DISABLED),
         key=lambda x: x[1][1],
     ):
         x, y = pos
@@ -83,7 +83,7 @@ def _recognize_menu(img: Image) -> Iterator[Tuple[Item, Tuple[int, int]]]:
             rp.vector(518, 540),
             y + rp.vector(48, 540),
         )
-        yield _recognize_item(rp, img.crop(bbox)), (x + rp.vector(303, 540), y)
+        yield _recognize_item(rp, img.crop(bbox)), (x + rp.vector(353, 540), y)
 
 
 class ItemMenuScene(Scene):
@@ -151,23 +151,32 @@ class ItemMenuScene(Scene):
 
     def use_items(self, ctx: Context, items: Sequence[Item]) -> None:
         remains = list(items)
+        disabled = list([])
+        unknown = list([])
 
         def _use_visible_items() -> None:
             for match, pos in _recognize_menu(template.screenshot()):
+                use_unknown = False
                 if match not in remains:
-                    continue
+                    if match.id > 15:
+                        continue
+                    else:
+                        use_unknown=True
                 if match.disabled:
                     _LOGGER.warning("skip disabled: %s", match)
-                    remains.remove(match)
+                    if not use_unknown:
+                        remains.remove(match)
+                        disabled.append(match)
                     continue
                 _LOGGER.info("use: %s", match)
                 action.tap(pos)
-                action.wait_tap_image(templates.SINGLE_MODE_ITEM_USE_BUTTON)
-                remains.remove(match)
-                ctx.items.remove(match.id, 1)
+                if not use_unknown:
+                    remains.remove(match)
+                    ctx.items.remove(match.id, 1)
+                else:
+                    unknown.append(match)
                 ctx.item_history.append(ctx, match)
                 # wait animation
-                action.wait_image_stable(templates.CLOSE_BUTTON)
                 return _use_visible_items()
 
         while self._scroll.next():
@@ -177,5 +186,16 @@ class ItemMenuScene(Scene):
             if not remains:
                 break
         self._scroll.complete()
+        book_remains = list(filter(lambda item:item.id<=15, list(ctx.items.full_list())))
+        if len(unknown) == len(book_remains):
+            for item in book_remains:
+                ctx.items.remove(item.id, 1)
+                if item in remains:
+                    remains.remove(item)
         for i in remains:
             _LOGGER.warning("use remain: %s", i)
+            ctx.do_recognize = True
+        if len(remains)+len(disabled) < len(items):
+            action.wait_tap_image(templates.SINGLE_MODE_SHOP_USE_CONFIRM_BUTTON)
+            action.wait_tap_image(templates.SINGLE_MODE_ITEM_USE_BUTTON)
+            action.wait_image_stable(templates.CLOSE_BUTTON)

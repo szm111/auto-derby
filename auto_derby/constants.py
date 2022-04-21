@@ -64,6 +64,15 @@ class TrainingType(enum.Enum):
     WISDOM = 5
 
 
+class SkillStyle(enum.Enum):
+    UNKNOWN = 0
+    SPEED = 1
+    ACCELERATION = 2
+    BLUE = 3
+    GREEN = 4
+    SPECIAL = 5
+    DEBUFF = 6
+
 @functools.total_ordering
 class Mood(enum.Enum):
     VERY_BAD = (0.8, 0.95)

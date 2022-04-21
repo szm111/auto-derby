@@ -7,6 +7,7 @@ class Plugin(auto_derby.Plugin):
         auto_derby.plugin.install("no_ocr_prompt")
         auto_derby.plugin.install("no_event_prompt")
         auto_derby.plugin.install("no_item_prompt")
+        #auto_derby.plugin.install("no_skill_prompt")
         auto_derby.plugin.install("auto_crane")
 
 

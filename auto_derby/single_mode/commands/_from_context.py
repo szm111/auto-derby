@@ -29,8 +29,9 @@ def from_context(ctx: Context) -> Iterator[Command]:
     max_race_score = 0
     for i in race.find(ctx):
         max_race_score = max(max_race_score, i.score(ctx))
-        yield RaceCommand(i)
-    if ctx.target_fan_count > ctx.fan_count and max_race_score > 15:
+        if (i.score(ctx) > 0):
+            yield RaceCommand(i)
+    if max_race_score > 15:
         return
 
     if scene.has_health_care:

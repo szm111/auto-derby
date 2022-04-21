@@ -86,9 +86,9 @@ class Option:
         mood = mathtools.interpolate(
             ctx.speed,
             (
-                (0, 30),
-                (600, 25),
-                (900, 20),
+                (0, 15),
+                (600, 15),
+                (900, 15),
                 (1200, 15),
             ),
         )
@@ -107,6 +107,7 @@ class Option:
                     (
                         Context.CONDITION_HEADACHE,
                         Context.CONDITION_OVERWEIGHT,
+                        Context.SKIN_ILLNESS,
                     )
                 ).intersection(ctx.conditions)
             )

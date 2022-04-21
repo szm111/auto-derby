@@ -141,7 +141,7 @@ class Item:
         if s:
             explain = "{s:.2f} by max vitality"
 
-        if g.explain_score and explain:
+        if explain:
             _LOGGER.debug(
                 "%s effect score: %.2f for %s: %s", self, ret, command, explain
             )
@@ -181,7 +181,7 @@ class Item:
             explain += f"{r*100:+.0f}% by quantity;"
             ret *= 1 + r
 
-        if g.explain_score and explain:
+        if explain:
             _LOGGER.debug("%s expected effect score: %.2f: %s", self, ret, explain)
         assert ret >= 0, ret
         return ret
@@ -318,7 +318,7 @@ class Item:
                 t_now, ((1, 3), (25, 3), (49, 3), (73, 0.02))
             ),
             "なまけ癖": mathtools.interpolate(t_now, ((1, 3), (25, 3), (49, 2), (73, 0.1))),
-            "肌あれ": mathtools.interpolate(t_now, ((1, 5), (25, 2), (49, 1), (73, 0.1))),
+            "肌あれ": mathtools.interpolate(t_now, ((1, 100), (25, 100), (49, 100), (73, 0.1))),
             "太り気味": mathtools.interpolate(t_now, ((1, 5), (25, 3), (49, 3), (73, 0.1))),
             "片頭痛": mathtools.interpolate(t_now, ((1, 4), (25, 4), (49, 3), (73, 1))),
             "練習ベタ": mathtools.interpolate(t_now, ((1, 6), (25, 5), (49, 3), (73, 0.1))),
@@ -380,7 +380,7 @@ class Item:
             explain += f"{r*100:+.0f}% by quantity;"
             ret *= 1 + r
 
-        if g.explain_score and explain:
+        if explain:
             _LOGGER.debug("%s exchange score: %.2f: %s", self, ret, explain)
         return ret
 
@@ -417,7 +417,7 @@ class Item:
             explain += f"{r*100:+.0f}% by turns;"
             ret *= 1 + r
 
-        if g.explain_score and explain:
+        if explain:
             _LOGGER.debug("%s expected exchange score: %.2f: %s", self, ret, explain)
         assert ret >= 0, ret
         return ret

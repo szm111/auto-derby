@@ -43,3 +43,8 @@ class ItemList:
 
     def remove(self, id: int, quantity: int):
         self.put(id, -quantity)
+
+    def full_list(self):
+        for item in sorted((i for i in self._m.values() if i.quantity > 0), key=lambda x: x.id):
+            for count in range(item.quantity):
+                yield item

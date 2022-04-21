@@ -13,6 +13,8 @@ from .. import Context, Race, RaceResult
 from .command import Command
 from .globals import g
 
+from auto_derby.constants import RuningStyle
+
 _LOGGER = logging.getLogger(__name__)
 
 
@@ -23,7 +25,15 @@ def _choose_running_style(ctx: Context, race1: Race) -> None:
     for style, score in style_scores:
         _LOGGER.info("running style score:\t%.2f:\t%s", score, style)
 
-    scene.choose_runing_style(style_scores[0][0])
+    unsorted_score = tuple(i for _, i in race1.style_scores_v2(ctx))
+    if race1.distance > 2600:
+        scene.choose_runing_style(ctx.long_distance_style)
+    elif unsorted_score[2] < 10000 and race1.distance >= 2400:
+        scene.choose_runing_style(style_scores[0][0])
+    else:
+        scene.choose_runing_style(ctx.default_running_style)
+        #scene.choose_runing_style(RuningStyle.HEAD)
+    # scene.choose_runing_style(style_scores[0][0])
 
 
 _RACE_ORDER_TEMPLATES = {
@@ -87,6 +97,9 @@ def _handle_race_result(ctx: Context, race: Race):
             retry()
             _handle_race_result(ctx, race)
             return
+    else:
+        if not ctx.is_after_winning:
+            ctx.is_after_winning = True
 
     action.tap(pos)
     if res.is_failed:
@@ -137,7 +150,7 @@ class RaceCommand(Command):
         _choose_running_style(ctx, race1)
 
         _handle_race_result(ctx, race1)
-        ctx.fan_count = 0  # request update in next turn
+        ctx.fan_count += 5000  # request update in next turn
         tmpl, pos = action.wait_image(
             templates.SINGLE_MODE_LIVE_BUTTON,
             templates.SINGLE_MODE_RACE_NEXT_BUTTON,

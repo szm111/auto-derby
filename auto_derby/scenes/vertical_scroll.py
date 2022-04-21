@@ -20,6 +20,7 @@ class VerticalScroll:
         origin: Tuple[int, int],
         page_size: int,
         max_page: int,
+        max_change_direction :int = 4,
     ) -> None:
         # top = 0, bottom = 1
         self._position = 0
@@ -29,6 +30,7 @@ class VerticalScroll:
         self._page_size = page_size
         self._direction_change_count = 0
         self._last_direction = 0
+        self._max_change_direction = max_change_direction
 
     def on_end(self):
         """this should be called when reached top/bottom."""
@@ -42,7 +44,7 @@ class VerticalScroll:
         self._direction_change_count = 0
 
     def next(self) -> bool:
-        if self._direction_change_count > 6:
+        if self._direction_change_count > self._max_change_direction:
             self.complete()
             return False
         if self._same_direction_count == 0:

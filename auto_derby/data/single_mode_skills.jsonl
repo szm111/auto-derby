@@ -1,0 +1,123 @@
+{"name": "貴顕の使命を果たすべく", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type":1}
+{"name": "好位追走", "pick": 2, "running_type": 2, "distance_type": 0, "skill_type":3}
+{"name": "栄養補給", "pick": 2, "running_type": 2, "distance_type": 0, "skill_type":3}
+{"name": "余裕綽々", "pick": 3, "running_type": 2, "distance_type": 0, "skill_type":3}
+{"name": "先行直線", "pick": 2, "running_type": 2, "distance_type": 0, "skill_type":1}
+{"name": "良バ場", "pick": 2, "running_type": 0, "distance_type": 0, "skill_type":4}
+{"name": "急ぎ足", "pick": 2, "running_type": 1, "distance_type": 0, "skill_type":0}
+{"name": "コーナー巧者", "pick": 2, "running_type": 0, "distance_type": 0, "skill_type":1}
+{"name": "逃げ直線", "pick": 2, "running_type": 1, "distance_type": 0, "skill_type":1}
+{"name": "直線回復", "pick": 2, "running_type": 0, "distance_type": 0, "skill_type":3}
+{"name": "垂れウマ回避", "pick": 2, "running_type": 0, "distance_type": 0, "skill_type":2}
+{"name": "非根幹距離", "pick": 2, "running_type": 0, "distance_type": 0, "skill_type":4}
+{"name": "道悪", "pick": 2, "running_type": 0, "distance_type": 0, "skill_type":4}
+{"name": "長距離コーナー", "pick": 0, "running_type": 0, "distance_type": 4, "skill_type":1}
+{"name": "先頭プライド", "pick": 2, "running_type": 1, "distance_type": 0, "skill_type":1}
+{"name": "ポジションセンス", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type":5}
+{"name": "左回り", "pick": 2, "running_type": 0, "distance_type": 0, "skill_type":4}
+{"name": "晴れの日", "pick": 2, "running_type": 0, "distance_type": 0, "skill_type":4}
+{"name": "外枠得意", "pick": 2, "running_type": 0, "distance_type": 0, "skill_type":4}
+{"name": "徹底マーク", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type":4}
+{"name": "コーナー回復", "pick": 2, "running_type": 0, "distance_type": 0, "skill_type":3}
+{"name": "弧線のプロフェッサー", "pick": 2, "running_type": 0, "distance_type": 0, "skill_type":1}
+{"name": "注目の踊り子", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type":5}
+{"name": "集中力", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type":5}
+{"name": "東京レース場", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type":4}
+{"name": "阪神レース場", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type":4}
+{"name": "新潟レース場", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type":4}
+{"name": "汝、皇帝の神威を見よ", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type":1}
+{"name": "臨機応変", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type":5}
+{"name": "末脚", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type":1}
+{"name": "直線巧者", "pick": 2, "running_type": 0, "distance_type": 0, "skill_type":1}
+{"name": "曇りの日", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type":4}
+{"name": "春ウマ娘", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type":4}
+{"name": "直線加速", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type":2}
+{"name": "冬ウマ娘", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type":4}
+{"name": "秋ウマ娘", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type":4}
+{"name": "夏ウマ娘", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type":4}
+{"name": "根幹距離", "pick": 2, "running_type": 0, "distance_type": 0, "skill_type":4}
+{"name": "危険回避", "pick": 2, "running_type": 1, "distance_type": 0, "skill_type":5}
+{"name": "長距離直線", "pick": 0, "running_type": 0, "distance_type": 4, "skill_type":1}
+{"name": "対抗意識", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type":4}
+{"name": "右回り", "pick": 2, "running_type": 0, "distance_type": 0, "skill_type":4}
+{"name": "円弧のマエストロ", "pick": 2, "running_type": 0, "distance_type": 0, "skill_type":3}
+{"name": "先駆け", "pick": 2, "running_type": 1, "distance_type": 0, "skill_type":2}
+{"name": "ハヤテ一文字", "pick": 2, "running_type": 0, "distance_type": 0, "skill_type":1}
+{"name": "Presents from X", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type":1}
+{"name": "Ravissant", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type":1}
+{"name": "初嵐", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type":4}
+{"name": "直線一気", "pick": 0, "running_type": 4, "distance_type": 0, "skill_type":2}
+{"name": "詰め寄り", "pick": 0, "running_type": 0, "distance_type": 1, "skill_type":1}
+{"name": "積極策", "pick": 0, "running_type": 0, "distance_type": 2, "skill_type":1}
+{"name": "上昇気流", "pick": 0, "running_type": 0, "distance_type": 2, "skill_type":2}
+{"name": "内弁慶", "pick": 0, "running_type": 0, "distance_type": 4, "skill_type":1}
+{"name": "布石", "pick": 0, "running_type": 0, "distance_type": 2, "skill_type":6}
+{"name": "中距離直線", "pick": 2, "running_type": 0, "distance_type": 3, "skill_type":1}
+{"name": "軽やかステップ", "pick": 0, "running_type": 0, "distance_type": 3, "skill_type":3}
+{"name": "リスタート", "pick": 0, "running_type": 1, "distance_type": 0, "skill_type":6}
+{"name": "巧みなステップ", "pick": 0, "running_type": 2, "distance_type": 0, "skill_type":2}
+{"name": "直滑降", "pick": 0, "running_type": 2, "distance_type": 0, "skill_type":2}
+{"name": "地固め", "pick": 2, "running_type": 0, "distance_type": 0, "skill_type":2}
+{"name": "尻尾上がり", "pick": 2, "running_type": 0, "distance_type": 0, "skill_type":1}
+{"name": "オペレーション・Cacao", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type":1}
+{"name": "スタミナキープ", "pick": 0, "running_type": 2, "distance_type": 0, "skill_type":3}
+{"name": "スプリントターボ", "pick": 0, "running_type": 0, "distance_type": 1, "skill_type":2}
+{"name": "スプリントギア", "pick": 0, "running_type": 0, "distance_type": 1, "skill_type":2}
+{"name": "逃げ駆け引き", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type":6}
+{"name": "善後策", "pick": 0, "running_type": 0, "distance_type": 1, "skill_type":2}
+{"name": "かく乱", "pick": 0, "running_type": 2, "distance_type": 0, "skill_type":6}
+{"name": "差しコーナー", "pick": 2, "running_type": 3, "distance_type": 0, "skill_type":1}
+{"name": "レコメンド", "pick": 0, "running_type": 0, "distance_type": 5, "skill_type":1}
+{"name": "静かな呼吸", "pick": 0, "running_type": 3, "distance_type": 0, "skill_type":3}
+{"name": "アオハル点火・速", "pick": 2, "running_type": 0, "distance_type": 0, "skill_type":1}
+{"name": "逃げ焦り", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type":6}
+{"name": "先頭の景色は譲らない…！", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type":1}
+{"name": "ペースアップ", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type":1}
+{"name": "中距離コーナー", "pick": 2, "running_type": 0, "distance_type": 3, "skill_type":1}
+{"name": "束縛", "pick": 0, "running_type": 0, "distance_type": 3, "skill_type":6}
+{"name": "ラッキーセブン", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type":4}
+{"name": "アングリング×スキーミング", "pick": 2, "running_type": 1, "distance_type": 0, "skill_type":2}
+{"name": "短距離直線", "pick": 0, "running_type": 0, "distance_type": 1, "skill_type":1}
+{"name": "プランX", "pick": 0, "running_type": 0, "distance_type": 1, "skill_type":2}
+{"name": "逃げコーナー", "pick": 2, "running_type": 1, "distance_type": 0, "skill_type":1}
+{"name": "勝利の鼓動", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type":1}
+{"name": "押し切り準備", "pick": 0, "running_type": 1, "distance_type": 0, "skill_type":2}
+{"name": "迅速果断", "pick": 2, "running_type": 3, "distance_type": 0, "skill_type":1}
+{"name": "位置取り押し上げ", "pick": 0, "running_type": 3, "distance_type": 0, "skill_type":1}
+{"name": "逃げのコツ", "pick": 0, "running_type": 1, "distance_type": 0, "skill_type":4}
+{"name": "負けん気", "pick": 0, "running_type": 0, "distance_type": 2, "skill_type":1}
+{"name": "イナズマステップ", "pick": 0, "running_type": 0, "distance_type": 3, "skill_type":5}
+{"name": "まき直し", "pick": 0, "running_type": 2, "distance_type": 0, "skill_type":2}
+{"name": "ワンチャンス", "pick": 0, "running_type": 0, "distance_type": 3, "skill_type":2}
+{"name": "绮罗星", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type":3}
+{"name": "ペースキープ", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type": 3}
+{"name": "マイル直線", "pick": 2, "running_type": 0, "distance_type": 2, "skill_type": 1}
+{"name": "追込コーナー", "pick": 0, "running_type": 4, "distance_type": 0, "skill_type": 1}
+{"name": "食い下がり", "pick": 0, "running_type": 0, "distance_type": 3, "skill_type": 1}
+{"name": "マイルコーナー", "pick": 2, "running_type": 0, "distance_type": 2, "skill_type": 1}
+{"name": "リードキープ", "pick": 0, "running_type": 0, "distance_type": 4, "skill_type": 1}
+{"name": "追い上げ", "pick": 0, "running_type": 0, "distance_type": 4, "skill_type": 1}
+{"name": "ありったけ", "pick": 0, "running_type": 0, "distance_type": 3, "skill_type": 1}
+{"name": "中山レース場", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type": 4}
+{"name": "アクセラレーション", "pick": 0, "running_type": 0, "distance_type": 2, "skill_type": 2}
+{"name": "抜け出し準備", "pick": 0, "running_type": 2, "distance_type": 0, "skill_type": 1}
+{"name": "前途洋々", "pick": 0, "running_type": 0, "distance_type": 3, "skill_type": 3}
+{"name": "スーパーラッキーセブン", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type": 4}
+{"name": "ささやき", "pick": 0, "running_type": 0, "distance_type": 3, "skill_type": 6}
+{"name": "二の矢", "pick": 0, "running_type": 1, "distance_type": 0, "skill_type": 2}
+{"name": "フラワリー☆マニューバ", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type": 1}
+{"name": "テンポアップ", "pick": 0, "running_type": 0, "distance_type": 3, "skill_type": 1}
+{"name": "大井レース場", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type": 4}
+{"name": "逃げためらい", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type": 6}
+{"name": "大きなリード", "pick": 0, "running_type": 1, "distance_type": 0, "skill_type": 1}
+{"name": "差しのコツ", "pick": 0, "running_type": 3, "distance_type": 0, "skill_type": 4}
+{"name": "前のめり", "pick": 0, "running_type": 0, "distance_type": 3, "skill_type": 1}
+{"name": "仕掛け準備", "pick": 0, "running_type": 0, "distance_type": 1, "skill_type": 1}
+{"name": "G00 1st.F∞;", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type": 1}
+{"name": "Shadow Break", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type": 1}
+{"name": "コンセントレーション", "pick": 2, "running_type": 0, "distance_type": 0, "skill_type": 5}
+{"name": "脱出術", "pick": 2, "running_type": 1, "distance_type": 0, "skill_type": 1}
+{"name": "別腹タンク", "pick": 0, "running_type": 0, "distance_type": 4, "skill_type": 3}
+{"name": "勢い任せ", "pick": 2, "running_type": 1, "distance_type": 0, "skill_type": 3}
+{"name": "闘争心", "pick": 0, "running_type": 0, "distance_type": 3, "skill_type": 1}
+{"name": "深呼吸", "pick": 0, "running_type": 0, "distance_type": 4, "skill_type": 3}

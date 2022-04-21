@@ -15,6 +15,9 @@ class Plugin(auto_derby.Plugin):
                 # increase for "プリティーミラー"
                 if self.name == "プリティーミラー":
                     ret += 10
+                    
+                if es.speed >5 or es.pow>5 or es.statmia >5 or es.guts > 5 or es.wisdom > 5:
+                    ret += 100
 
                 # increse for item can add condition "愛嬌○"
                 if any(condition.get(i).name == "愛嬌○" for i in es.condition_add):
@@ -65,6 +68,8 @@ class Plugin(auto_derby.Plugin):
                 # use max vitality item directly after exchange
                 es = self.effect_summary()
                 if es.max_vitality > 0:
+                    return True
+                if es.speed >5 or es.pow>5 or es.statmia >5 or es.guts > 5 or es.wisdom > 5:
                     return True
                 return super().should_use_directly(ctx)
 

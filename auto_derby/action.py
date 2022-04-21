@@ -45,7 +45,7 @@ def match_image_until_disappear(
 
 def wait_image(
     *tmpl: Union[Text, template.Specification],
-    timeout: float = float("inf"),
+    timeout: float = 60,
 ) -> Tuple[template.Specification, Tuple[int, int]]:
     deadline = time.time() + timeout
     while True:
@@ -60,7 +60,7 @@ def wait_image(
 def wait_image_stable(
     *tmpl: Union[Text, template.Specification],
     duration: float = 1.0,
-    timeout: float = float("inf"),
+    timeout: float = 60,
 ) -> Tuple[template.Specification, Tuple[int, int]]:
     deadline = time.time() + timeout
     t, last_pos = wait_image(*tmpl, timeout=timeout)
@@ -84,7 +84,8 @@ T = TypeVar("T")
 def run_with_retry(fn: Callable[[], T], max_retry: int = 10, delay: float = 1) -> T:
     try:
         return fn()
-    except Exception:
+    except Exception as e:
+        print(e)
         if max_retry <= 0:
             raise
         time.sleep(delay)
@@ -112,14 +113,18 @@ def tap_image(
 
 
 def wait_tap_image(
-    name: Union[Text, template.Specification], *, x: int = 0, y: int = 0
+    name: Union[Text, template.Specification], *, x: int = 0, y: int = 0, timeout: float = 10,
 ) -> None:
+    deadline = time.time() + timeout
     _, last_pos = wait_image(name)
     while True:
         _, pos = wait_image(name)
         if pos == last_pos:
             break
         last_pos = pos
+        if time.time() > deadline:
+            raise TimeoutError()
+        time.sleep(0.01)
     tap((pos[0] + x, pos[1] + y))
 
 

@@ -49,8 +49,8 @@ def _recognize_base_effect(img: Image) -> int:
     )
     white_outline_img = cv2.morphologyEx(
         white_outline_img,
-        cv2.MORPH_CLOSE,
-        cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5)),
+        cv2.MORPH_DILATE,
+        cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (3, 3)),
     )
 
     bg_mask_img = imagetools.bg_mask_by_outline(white_outline_img)
@@ -69,8 +69,8 @@ def _recognize_base_effect(img: Image) -> int:
     )
     brown_outline_img = cv2.morphologyEx(
         brown_outline_img,
-        cv2.MORPH_DILATE,
-        cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (3, 3)),
+        cv2.MORPH_CLOSE,
+        cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5)),
     )
 
     bg_mask_img = imagetools.bg_mask_by_outline(brown_outline_img)
@@ -98,9 +98,6 @@ def _recognize_base_effect(img: Image) -> int:
     )
     text_img = np.array(np.maximum(text_img, text_img_extra))
     imagetools.fill_area(text_img, (0,), size_lt=48)
-    if cv2.countNonZero(text_img) < 100:
-        # ignore skin match result
-        return 0
 
     if os.getenv("DEBUG") == __name__:
         cv2.imshow("cv_img", cv_img)
@@ -208,7 +205,7 @@ def _recognize_red_effect(img: Image) -> int:
     )
     text_img = np.array(np.maximum(text_img_base, text_img_extra))
     h = cv_img.shape[0]
-    imagetools.fill_area(text_img, (0,), size_lt=round(h * 0.2**2))
+    imagetools.fill_area(text_img, (0,), size_lt=round(h * 0.2 ** 2))
 
     if os.getenv("DEBUG") == __name__:
         cv2.imshow("cv_img", cv_img)
@@ -275,7 +272,10 @@ def _recognize_failure_rate(
         cv2.waitKey()
         cv2.destroyAllWindows()
     text = ocr.text(imagetools.pil_image(text_img))
-    return int(text.strip("%")) / 100
+    try:
+        return int(text.strip("%")) / 100
+    except:
+        return 1.0
 
 
 def _estimate_vitality(ctx: Context, trn: Training) -> float:
@@ -293,13 +293,11 @@ def _estimate_vitality(ctx: Context, trn: Training) -> float:
     return vit_data[trn.type][trn.level - 1] / ctx.max_vitality
 
 
-def _iter_training_images(static: bool):
+def _iter_training_images():
     rp = action.resize_proxy()
     radius = rp.vector(30, 540)
     _, first_confirm_pos = action.wait_image(_TRAINING_CONFIRM)
     yield template.screenshot()
-    if static:
-        return
     seen_confirm_pos = {
         first_confirm_pos,
     }
@@ -740,18 +738,16 @@ class TrainingScene(Scene):
         ctx.scenario = ctx.SCENARIO_URA
         return self.recognize_v2(ctx)
 
-    def recognize_v2(self, ctx: Context, static: bool = False) -> None:
+    def recognize_v2(self, ctx: Context) -> None:
         with futures.ThreadPoolExecutor() as pool:
             self.trainings = tuple(
                 i.result()
                 for i in [
                     pool.submit(_recognize_training, ctx, j)
-                    for j in _iter_training_images(static)
+                    for j in _iter_training_images()
                 ]
             )
-        assert len(set(i.type for i in self.trainings)) == len(
-            self.trainings
-        ), "duplicated trainings"
+        assert len(set(i.type for i in self.trainings)) == len(self.trainings), "duplicated trainings"
         ctx.trainings = self.trainings
         if not ctx.is_summer_camp:
             ctx.training_levels = {i.type: i.level for i in self.trainings}
