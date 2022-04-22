@@ -53,7 +53,8 @@ def iterate(
         if isinstance(command, TrainingCommand) and item.id in [51, 52, 53]:
             continue
             
-        if isinstance(command, TrainingCommand) and item_summary.training_effect_buff and command.training.type not in item_summary.training_effect_buff.keys()
+        if isinstance(command, TrainingCommand) and item_summary.training_effect_buff and command.training.type not in item_summary.training_effect_buff.keys():
+            continue
         
         for q_index in range(item.quantity):
             if (item_summary.vitality or item_summary.training_no_failure) and (es_after.vitality + ctx.vitality * 100 >= 50 or es_after.training_no_failure):
