@@ -7,7 +7,6 @@ import logging
 from typing import TYPE_CHECKING, Iterator, Sequence, Tuple
 
 from .effect_summary import EffectSummary
-from ..commands import RaceCommand, TrainingCommand
 from ...constants import TrainingType
 
 _LOGGER = logging.getLogger(__name__)
@@ -20,7 +19,7 @@ if TYPE_CHECKING:
     Plan = Tuple[float, Tuple[Item, ...]]
     
 def _item_order(item: Item) -> int:
-    es = item_summary
+    es = item.effect_summary()
     if es.training_no_failure:
         return 100
     if es.vitality:
@@ -46,6 +45,8 @@ def iterate(
         items_current: Sequence[Item] = ()
         es_after = summary.clone()
         item_summary = item.effect_summary()
+        
+        from ..commands import RaceCommand, TrainingCommand
         
         if isinstance(command, RaceCommand) and item.id not in [51, 52, 53]:
             continue
@@ -79,7 +80,7 @@ def iterate(
             yield _with_log((s_best, items_best))
             if item_summary.training_effect_buff or item_summary.race_reward_buff:
                 break
-            if es_after.vitality + ctx.vitality * 100 >= 50 or es_after.training_no_failure:
+            if (item_summary.vitality or item_summary.training_no_failure) and (es_after.vitality + ctx.vitality * 100 >= 50 or es_after.training_no_failure):
                 return
 
     return
@@ -90,6 +91,6 @@ def compute(
     command: Command,
 ) -> Plan:
     return sorted(
-        iterate(ctx, command, sorted(filter(lambda item: item.id <= 15 or (item.id >= 24 and item.id <=41),tuple(ctx.items)), key=lambda x: (_item_order(x), -x.id)), EffectSummary()),
+        iterate(ctx, command, sorted(filter(lambda item: (item.id > 15 and item.id < 24) or item.id >42,tuple(ctx.items)), key=lambda x: (_item_order(x), -x.id)), EffectSummary()),
         key=lambda x: (round(-x[0]), sum(i.original_price for i in x[1])),
     )[0]

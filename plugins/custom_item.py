@@ -10,7 +10,6 @@ class Plugin(auto_derby.Plugin):
         class Item(auto_derby.config.single_mode_item_class):
             # high exchange score means high exchange priority
             def exchange_score(self, ctx: Context) -> float:
-                ret = super().exchange_score(ctx)
                 es = self.effect_summary()
                 
                 # You can find all item settings at auto_derby/data/single_mode_items.jsonl.
@@ -19,48 +18,66 @@ class Plugin(auto_derby.Plugin):
                 # Add more score for speed ankle weight. Only buy speed and power ankle weights
                 if es.training_vitality_debuff:
                     if TrainingType.SPEED in es.training_vitality_debuff:
-                        ret += 50
-                    elif TrainingType.POWER not in es.training_vitality_debuff:
-                        ret = 0
+                        return 75
+                    elif TrainingType.POWER in es.training_vitality_debuff and ctx.items.get(self.id).quantity <= 1:
+                        return 25
+                    else:
+                        return 0
                     
                 # Do not bug 20% Megaphone. Only buy 40% and 60%. 60% has very high priority.
                 if es.training_effect_buff and not es.training_vitality_debuff:
                     tp, value, _, _ = self.effects[0].values
                     if value < 30:
-                        ret = 0
+                        return 0
                     elif value>50:
-                        ret += 100
+                        return 100
+                    elif ctx.items.get(self.id).quantity >= 1:
+                        return 0
+                    else:
+                        return 50
                         
                 # All efficient books
-                if es.speed >5 or es.power>5 or es.statmia >5 or es.guts > 5 or es.wisdom > 5:
-                    ret += 100
+                if self.id <=15 and self.id >= 6:
+                    return 100
+                elif self.id <= 5:
+                    return 0
                     
+                if self.id == 53:
+                    return 0
                 # All horseshoe hammers.
                 if es.race_reward_buff:
-                    ret += 100
+                    return 100
+                    
+                # Do not buy maximum vitality itemss.
+                if es.max_vitality:
+                    return 0
+                    
+                if self.id ==19:
+                    if ctx.items.get(self.id).quantity >= 2:
+                        return 0
+                    else:
+                        return 100
                 
                 # Vitality items and amulet
                 if es.training_no_failure or (es.vitality and not es.mood):
-                    ret += 100
+                    return 100
                     
                 # Cakes
                 if es.mood:
-                    ret += 100
+                    return 100
                     
                 # BBQ and PHD hat
                 if self.id == 29 or self.id == 25:
-                    ret += 100
+                    return 100
                     
                 # Only buy speed training level. 
                 if es.training_levels:
                     if self.id ==37:
-                        ret+=100
+                        return 100
                     else:
-                        ret = 0
-                        
-                # Do not buy maximum vitality itemss.
-                if es.max_vitality:
-                    ret = 0
+                        return 0
+                    
+                ret = super().exchange_score(ctx)
                 return ret
 
             # item will not be exchanged from shop if
