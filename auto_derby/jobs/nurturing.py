@@ -152,11 +152,10 @@ def _handle_turn(ctx: Context):
     if ctx.items_last_updated_turn == 0:
         _handle_item_list(ctx, scene)
         
-    if ctx.turn_count_v2() in [22,31]:
+    if ctx.turn_count_v2() in [22,31,55]:
         _handle_skill(ctx, scene)
-    if ctx.turn_count_v2() in [43,55]:
+    if ctx.turn_count_v2() in [43]:
         _handle_skill(ctx, scene, True)
-        _handle_skill(ctx, scene)
     ctx.next_turn()
     LOGGER.info("context: %s", ctx)
     for i in ctx.items:

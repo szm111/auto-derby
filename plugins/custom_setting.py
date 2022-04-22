@@ -7,6 +7,7 @@ class Plugin(auto_derby.Plugin):
         auto_derby.plugin.install("custom_race_mile_middle_long")
         auto_derby.plugin.install("custom_item")
         auto_derby.plugin.install("custom_context")
+        auto_derby.plugin.install("custom_training_partner_score")
         # TODO: Add a plugin for setting skills
         # For now. You can set them in
         # auto_derby/data/single_mode_skills.jsonl

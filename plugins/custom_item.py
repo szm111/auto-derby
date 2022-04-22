@@ -130,7 +130,7 @@ class Plugin(auto_derby.Plugin):
                     return True
                 if es.speed >5 or es.power>5 or es.statmia >5 or es.guts > 5 or es.wisdom > 5:
                     return True
-                if self.id == 29 or self.id == 25:
+                if self.id >= 24 and self.id <=41:
                     return True
                 if es.mood and not es.vitality and ctx.mood[0] < 1.05:
                     return True

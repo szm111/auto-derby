@@ -103,6 +103,7 @@ class ShopScene(Scene):
             origin=rp.vector2((17, 540), 540),
             page_size=150,
             max_page=10,
+            max_change_direction = 0,
         )
 
     @classmethod
