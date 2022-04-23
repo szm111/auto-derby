@@ -150,7 +150,7 @@ class ItemMenuScene(Scene):
         ctx.items = self.items
         ctx.items_last_updated_turn = ctx.turn_count()
 
-    def use_items(self, ctx: Context, items: Sequence[Item]) -> None:
+    def use_items(self, ctx: Context, items: Sequence[Item]) -> Sequence[Item]:
         remains = list(items)
         disabled = list([])
         unknown = list([])
@@ -200,3 +200,5 @@ class ItemMenuScene(Scene):
             action.wait_tap_image(templates.SINGLE_MODE_SHOP_USE_CONFIRM_BUTTON)
             action.wait_tap_image(templates.SINGLE_MODE_ITEM_USE_BUTTON)
             action.wait_image_stable(templates.CLOSE_BUTTON)
+
+        return remains

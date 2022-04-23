@@ -81,8 +81,8 @@ def _handle_shop(ctx: Context, cs: CommandScene):
         action.wait_tap_image(templates.CLOSE_BUTTON)
 
     cs.enter(ctx)
-    #if any(i.should_use_directly(ctx) for i in cart_items):
-    #    cs.recognize(ctx)
+    if any(i.should_use_directly(ctx) for i in cart_items):
+        _handle_item_list(ctx, cs)
     return
 
 
@@ -105,6 +105,11 @@ def _handle_skill(ctx: Context, cs: CommandScene, blue_onlye = False):
     scene.learn_skill(ctx, blue_onlye)
     cs.enter(ctx)
     return
+    
+
+class ItemNotFound(ValueError):
+    def __init__(self) -> None:
+        super().__init__("Not found the item want to use")
 
 
 class _CommandPlan:
@@ -121,7 +126,10 @@ class _CommandPlan:
     def execute(self, ctx: Context):
         if self.items:
             scene = ItemMenuScene.enter(ctx)
-            scene.use_items(ctx, self.items)
+            remains = scene.use_items(ctx, self.items)
+            if remains:
+                ctx.do_recognize = True
+                raise ItemNotFound()
         self.command.execute(ctx)
 
     def explain(self) -> Text:
@@ -167,7 +175,7 @@ def _handle_turn(ctx: Context):
         LOGGER.info("score:\t%2.2f\t%s;%s", cp.score, cp.command.name(), cp.explain())
     try:
         command_plans[0].execute(ctx)
-    except RaceTurnsIncorrect:
+    except RaceTurnsIncorrect, ItemNotFound:
         _handle_turn(ctx)
 
 
