@@ -75,12 +75,12 @@ def iterate(
             s_best, items_best = (s_current, items_current)
             for sub_plan in iterate(ctx, command, items[index + 1 :], es_after,):
                 s_sub, items_sub = (s_current + sub_plan[0], (*items_current, *sub_plan[1]))
-                if round(s_sub, 2) > round(s_best, 2) or (round(s_sub, 2) == round(s_best, 2) and sum(i.original_price for i in items_sub) < sum(j.original_price for j in items_best)):
+                if s_sub > s_best or (s_sub == s_best and sum(i.original_price for i in items_sub) < sum(j.original_price for j in items_best)):
                     s_best, items_best = s_sub, items_sub
             yield _with_log((s_best, items_best))
             if item_summary.training_effect_buff or item_summary.race_reward_buff:
                 break
-            if (item_summary.vitality or item_summary.training_no_failure) and (es_after.vitality + ctx.vitality * 100 >= 50 or es_after.training_no_failure):
+            if (item_summary.vitality or item_summary.training_no_failure) and (es_after.vitality + ctx.vitality * 100 >= 50 or es_after.training_no_failure) and item.id != 19:
                 return
 
     return

@@ -24,7 +24,7 @@ from auto_derby.constants import RuningStyle, SkillStyle
 _LOGGER = logging.getLogger(__name__)
 
 def _recognize_skill_remain_point(img: PIL.Image.Image) -> int:
-    skill_remain_point_img = img.crop((414, 301, 465, 330))
+    skill_remain_point_img = img.crop((400, 301, 500, 330))
     cv_img = imagetools.cv_image(skill_remain_point_img.convert("L"))
     cv_img = imagetools.level(
         cv_img, np.percentile(cv_img, 1), np.percentile(cv_img, 90)
@@ -151,8 +151,6 @@ class SkillMenuScene(Scene):
             #if _is_scroll_to_end:
             #    break
         if pick:
-            action.tap(rp.vector2((220, 680), 466))
-            time.sleep(3.0)
-            action.tap(rp.vector2((280, 780), 466))
-            time.sleep(3.0)
-            action.tap(rp.vector2((280, 780), 466))
+            action.wait_tap_image(templates.SINGLE_MODE_CONFIRM_BUTTON)
+            action.wait_tap_image(templates.SINGLE_MODE_SKILL_GET_BUTTON)
+            action.wait_tap_image(templates.CLOSE_BUTTON)

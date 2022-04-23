@@ -77,10 +77,8 @@ def _handle_shop(ctx: Context, cs: CommandScene):
         LOGGER.info("score:\t%2.2f/%2.2f:\t%s\t%s", s, es, i, status)
     remain_size = scene.exchange_items(ctx, cart_items)
     if remain_size < len(cart_items):
-        rp = action.resize_proxy()
-        action.tap(rp.vector2((220, 680), 466))
-        time.sleep(2.0)
-        action.tap(rp.vector2((80, 780), 466))
+        action.wait_tap_image(templates.SINGLE_MODE_CONFIRM_BUTTON)
+        action.wait_tap_image(templates.CLOSE_BUTTON)
 
     cs.enter(ctx)
     #if any(i.should_use_directly(ctx) for i in cart_items):
@@ -318,6 +316,7 @@ def _handle_aoharu_team_race(ac: _ActionContext):
 def _template_actions(ctx: Context) -> Iterator[Tuple[_Template, _Handler]]:
     yield templates.CONNECTING, _pass
     yield templates.RETRY_BUTTON, _tap
+    #yield templates.SINGLE_MODE_SKILL_GET_BUTTON, _tap
     yield templates.RETURN_BUTTON, _tap
     yield templates.CLOSE_BUTTON, _tap
     yield templates.CANCEL_BUTTON, _tap

@@ -68,7 +68,7 @@
 {"name": "かく乱", "pick": 0, "running_type": 2, "distance_type": 0, "skill_type":6}
 {"name": "差しコーナー", "pick": 2, "running_type": 3, "distance_type": 0, "skill_type":1}
 {"name": "レコメンド", "pick": 0, "running_type": 0, "distance_type": 5, "skill_type":1}
-{"name": "静かな呼吸", "pick": 0, "running_type": 3, "distance_type": 0, "skill_type":3}
+{"name": "静かな呼吸", "pick": 2, "running_type": 3, "distance_type": 0, "skill_type":3}
 {"name": "アオハル点火・速", "pick": 2, "running_type": 0, "distance_type": 0, "skill_type":1}
 {"name": "逃げ焦り", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type":6}
 {"name": "先頭の景色は譲らない…！", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type":1}
@@ -110,7 +110,7 @@
 {"name": "大井レース場", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type": 4}
 {"name": "逃げためらい", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type": 6}
 {"name": "大きなリード", "pick": 0, "running_type": 1, "distance_type": 0, "skill_type": 1}
-{"name": "差しのコツ", "pick": 0, "running_type": 3, "distance_type": 0, "skill_type": 4}
+{"name": "差しのコツ", "pick": 2, "running_type": 3, "distance_type": 0, "skill_type": 4}
 {"name": "前のめり", "pick": 0, "running_type": 0, "distance_type": 3, "skill_type": 1}
 {"name": "仕掛け準備", "pick": 0, "running_type": 0, "distance_type": 1, "skill_type": 1}
 {"name": "G00 1st.F∞;", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type": 1}
@@ -126,3 +126,32 @@
 {"name": "福島レース場", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type": 4}
 {"name": "ギアシフト", "pick": 0, "running_type": 0, "distance_type": 2, "skill_type": 1}
 {"name": "小休憩", "pick": 0, "running_type": 3, "distance_type": 0, "skill_type": 3}
+{"name": "スピードイーター", "pick": 0, "running_type": 0, "distance_type": 2, "skill_type": 6}
+{"name": "先行コーナー", "pick": 2, "running_type": 2, "distance_type": 0, "skill_type": 1}
+{"name": "尊み☆ﾗｽﾄｽﾊﾟ-(ﾟ∀ﾟ)-ﾄ!", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type": 0}
+{"name": "彼方、その先へ…", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type": 2}
+{"name": "雨の日", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type": 4}
+{"name": "昇り龍", "pick": 0, "running_type": 3, "distance_type": 0, "skill_type": 1}
+{"name": "外差し準備", "pick": 0, "running_type": 3, "distance_type": 0, "skill_type": 1}
+{"name": "キラーチューン", "pick": 0, "running_type": 0, "distance_type": 3, "skill_type": 1}
+{"name": "先行焦り", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type": 6}
+{"name": "がんばり屋", "pick": 0, "running_type": 3, "distance_type": 0, "skill_type": 2}
+{"name": "先行けん制", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type": 6}
+{"name": "差し直線", "pick": 2, "running_type": 3, "distance_type": 0, "skill_type": 1}
+{"name": "差し切り体勢", "pick": 0, "running_type": 3, "distance_type": 0, "skill_type": 2}
+{"name": "十万バリキ", "pick": 2, "running_type": 3, "distance_type": 0, "skill_type": 1}
+{"name": "追込直線", "pick": 1, "running_type": 4, "distance_type": 0, "skill_type": 1}
+{"name": "冷静沈着", "pick": 0, "running_type": 4, "distance_type": 0, "skill_type": 3}
+{"name": "冷静", "pick": 0, "running_type": 4, "distance_type": 0, "skill_type": 3}
+{"name": "前列狙い", "pick": 0, "running_type": 0, "distance_type": 5, "skill_type": 2}
+{"name": "おひとり様", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type": 4}
+{"name": "伏兵", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type": 4}
+{"name": "遊びはおしまいっ！", "pick": 2, "running_type": 0, "distance_type": 0, "skill_type": 1}
+{"name": "ゲインヒール・スペリアー", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type": 3}
+{"name": "鋭い眼光", "pick": 0, "running_type": 3, "distance_type": 0, "skill_type": 6}
+{"name": "京都レース場", "pick": 2, "running_type": 0, "distance_type": 0, "skill_type": 4}
+{"name": "読解力", "pick": 0, "running_type": 3, "distance_type": 0, "skill_type": 5}
+{"name": "差しけん制", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type": 6}
+{"name": "ウマ込み冷静", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type": 0}
+{"name": "不沈艦、抜錨ォッ！", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type": 0}
+{"name": "ホークアイ", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type": 0}

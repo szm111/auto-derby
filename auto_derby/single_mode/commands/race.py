@@ -28,11 +28,12 @@ def _choose_running_style(ctx: Context, race1: Race) -> None:
         style = ctx.long_distance_style
     else:
         style = ctx.default_running_style
-        ctx.scene = scenes.UnknownScene()
     if ctx.previous_running_style != style:
         scene = PaddockScene.enter(ctx)
         scene.choose_runing_style(style)
         ctx.previous_running_style = style
+    else:
+        ctx.scene = scenes.UnknownScene()
 
 
 _RACE_ORDER_TEMPLATES = {

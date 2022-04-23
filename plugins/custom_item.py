@@ -114,6 +114,9 @@ class Plugin(auto_derby.Plugin):
                 # reduce when training speed > 13
                 if isinstance(command, TrainingCommand) and command.training.speed > 13:
                     ret -= self.original_price * 0.5
+                    
+                if es.mood:
+                    return 1
                 
                 # increase when race grade lower than G1.
                 if (
@@ -124,8 +127,7 @@ class Plugin(auto_derby.Plugin):
                 
                 # URA, should use item. They should be detected as G1 but there are bugs.
                 if isinstance(command, RaceCommand) and ctx.date[0] == 4 and es.race_reward_buff:
-                    ret =0
-                    return ret
+                    return 0
                     
                 # Use small horseshoe hammer when it is G1
                 if isinstance(command, RaceCommand) and command.race.grade == command.race.GRADE_G1 and es.race_reward_buff and self.id == 51:
