@@ -175,7 +175,7 @@ def _handle_turn(ctx: Context):
         LOGGER.info("score:\t%2.2f\t%s;%s", cp.score, cp.command.name(), cp.explain())
     try:
         command_plans[0].execute(ctx)
-    except RaceTurnsIncorrect, ItemNotFound:
+    except (RaceTurnsIncorrect, ItemNotFound):
         _handle_turn(ctx)
 
 
