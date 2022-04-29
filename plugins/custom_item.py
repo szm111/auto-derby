@@ -153,6 +153,8 @@ class Plugin(auto_derby.Plugin):
                     return True
                 if es.mood and not es.vitality and ctx.mood[0] < 1.05:
                     return True
+                if self.id == 19 and ctx.vitality <= 0.05:
+                    return True
                 return super().should_use_directly(ctx)
 
         auto_derby.config.single_mode_item_class = Item

@@ -141,7 +141,7 @@ class SkillMenuScene(Scene):
                         if _pick_skill(img, ctx, skill, pos, remain):
                             remain -= skill.price
                             pick = True
-                            if skill.name == "余裕綽々":
+                            if skill.name in ["余裕綽々","レースプランナー"]:
                                 ctx.long_distance_style = RuningStyle.HEAD
                     elif skill.pick == 2 and (not skill.running_type or skill.running_type == ctx.default_running_style.value):
                         if _pick_skill(img, ctx, skill, pos, remain):

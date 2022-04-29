@@ -1,4 +1,5 @@
 {"name": "貴顕の使命を果たすべく", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type":1}
+{"name": "レースプランナー", "pick": 3, "running_type": 2, "distance_type": 0, "skill_type":3}
 {"name": "好位追走", "pick": 0, "running_type": 2, "distance_type": 0, "skill_type":3}
 {"name": "栄養補給", "pick": 0, "running_type": 2, "distance_type": 0, "skill_type":3}
 {"name": "余裕綽々", "pick": 3, "running_type": 2, "distance_type": 0, "skill_type":3}
@@ -12,7 +13,7 @@
 {"name": "非根幹距離", "pick": 2, "running_type": 0, "distance_type": 0, "skill_type":4}
 {"name": "道悪", "pick": 2, "running_type": 0, "distance_type": 0, "skill_type":4}
 {"name": "長距離コーナー", "pick": 0, "running_type": 0, "distance_type": 4, "skill_type":1}
-{"name": "先頭プライド", "pick": 2, "running_type": 1, "distance_type": 0, "skill_type":1}
+{"name": "先頭プライド", "pick": 0, "running_type": 1, "distance_type": 0, "skill_type":1}
 {"name": "ポジションセンス", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type":5}
 {"name": "左回り", "pick": 2, "running_type": 0, "distance_type": 0, "skill_type":4}
 {"name": "晴れの日", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type":4}
@@ -84,7 +85,7 @@
 {"name": "押し切り準備", "pick": 0, "running_type": 1, "distance_type": 0, "skill_type":2}
 {"name": "迅速果断", "pick": 2, "running_type": 3, "distance_type": 0, "skill_type":1}
 {"name": "位置取り押し上げ", "pick": 0, "running_type": 3, "distance_type": 0, "skill_type":1}
-{"name": "逃げのコツ", "pick": 2, "running_type": 1, "distance_type": 0, "skill_type":4}
+{"name": "逃げのコツ", "pick": 0, "running_type": 1, "distance_type": 0, "skill_type":4}
 {"name": "負けん気", "pick": 0, "running_type": 0, "distance_type": 2, "skill_type":1}
 {"name": "イナズマステップ", "pick": 0, "running_type": 0, "distance_type": 3, "skill_type":5}
 {"name": "まき直し", "pick": 0, "running_type": 2, "distance_type": 0, "skill_type":2}
@@ -110,7 +111,7 @@
 {"name": "大井レース場", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type": 4}
 {"name": "逃げためらい", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type": 6}
 {"name": "大きなリード", "pick": 0, "running_type": 1, "distance_type": 0, "skill_type": 1}
-{"name": "差しのコツ", "pick": 2, "running_type": 3, "distance_type": 0, "skill_type": 4}
+{"name": "差しのコツ", "pick": 0, "running_type": 3, "distance_type": 0, "skill_type": 4}
 {"name": "前のめり", "pick": 0, "running_type": 0, "distance_type": 3, "skill_type": 1}
 {"name": "仕掛け準備", "pick": 0, "running_type": 0, "distance_type": 1, "skill_type": 1}
 {"name": "G00 1st.F∞;", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type": 1}
@@ -127,7 +128,7 @@
 {"name": "ギアシフト", "pick": 0, "running_type": 0, "distance_type": 2, "skill_type": 1}
 {"name": "小休憩", "pick": 0, "running_type": 3, "distance_type": 0, "skill_type": 3}
 {"name": "スピードイーター", "pick": 0, "running_type": 0, "distance_type": 2, "skill_type": 6}
-{"name": "先行コーナー", "pick": 2, "running_type": 2, "distance_type": 0, "skill_type": 1}
+{"name": "先行コーナー", "pick": 0, "running_type": 2, "distance_type": 0, "skill_type": 1}
 {"name": "尊み☆ﾗｽﾄｽﾊﾟ-(ﾟ∀ﾟ)-ﾄ!", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type": 0}
 {"name": "彼方、その先へ…", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type": 2}
 {"name": "雨の日", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type": 4}
@@ -155,3 +156,26 @@
 {"name": "ウマ込み冷静", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type": 0}
 {"name": "不沈艦、抜錨ォッ！", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type": 0}
 {"name": "ホークアイ", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type": 0}
+{"name": "VIP顔パス", "pick": 3, "running_type": 0, "distance_type": 4, "skill_type": 3}
+{"name": "全身全霊", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type": 1}
+{"name": "パス上手", "pick": 0, "running_type": 0, "distance_type": 4, "skill_type": 3}
+{"name": "先行のコツ", "pick": 2, "running_type": 0, "distance_type": 0, "skill_type": 4}
+{"name": "内枠得意", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type": 4}
+{"name": "目くらまし", "pick": 0, "running_type": 0, "distance_type": 4, "skill_type": 6}
+{"name": "ギアチェンジ", "pick": 0, "running_type": 0, "distance_type": 2, "skill_type": 1}
+{"name": "アクセル全開！", "pick": 0, "running_type": 0, "distance_type": 2, "skill_type": 2}
+{"name": "潜伏態勢", "pick": 0, "running_type": 3, "distance_type": 0, "skill_type": 3}
+{"name": "きっとその先へ…！", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type": 1}
+{"name": "優等生×バクシン＝大勝利ッ", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type": 1}
+{"name": "クールダウン", "pick": 3, "running_type": 0, "distance_type": 4, "skill_type": 3}
+{"name": "差しためらい", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type": 6}
+{"name": "決意の直滑降", "pick": 0, "running_type": 2, "distance_type": 0, "skill_type": 2}
+{"name": "スリーセブン", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type": 3}
+{"name": "登山家", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type": 2}
+{"name": "白い稲妻、見せたるで！", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type": 1}
+{"name": "トリック（後）", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type": 6}
+{"name": "神業ステップ", "pick": 0, "running_type": 0, "distance_type": 3, "skill_type": 3}
+{"name": "ピュリティオブハート", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type": 3}
+{"name": "真っ向勝負", "pick": 0, "running_type": 2, "distance_type": 0, "skill_type": 2}
+{"name": "気合十分", "pick": 0, "running_type": 0, "distance_type": 2, "skill_type": 1}
+{"name": "コーナー加速", "pick": 0, "running_type": 0, "distance_type": 0, "skill_type": 2}

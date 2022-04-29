@@ -121,20 +121,22 @@ class ShopScene(Scene):
 
     def _recognize_items(self, static: bool = False) -> None:
         self.items = ()
+        previous = ()
         while self._scroll.next():
-            new_items = tuple(
+            found_item = tuple(
                 i
                 for i, _ in _recognize_menu(template.screenshot())
-                if i not in self.items
             )
+            new_items = tuple(i for i in found_item if i not in previous)
             if not new_items:
                 self._scroll.on_end()
                 self._scroll.complete()
                 return
             self.items += new_items
+            previous = found_item
             if static:
                 break
-        LOGGER.info(self.items)
+        _LOGGER.info(self.items)
         terminal.pause("items")
         if not self.items:
             _LOGGER.warning("not found any items")
@@ -144,21 +146,31 @@ class ShopScene(Scene):
         self._recognize_items(static)
 
     def exchange_items(self, ctx: Context, items: Sequence[Item]) -> int:
+        item_list = list(items)
         remains = list(items)
 
         def _exchange_visible_items() -> None:
             for match, pos in _recognize_menu(template.screenshot()):
+                found_missing = False
                 if match not in remains:
-                    continue
+                    if match not in item_list:
+                        continue
+                    else:
+                        found_missing = True
                 if ctx.items.get(match.id).quantity >= match.max_quantity:
-                    remains.remove(match)
+                    if not found_missing:
+                        remains.remove(match)
                     _LOGGER.warning("skip due to max quantity: %s", match)
                     continue
+                if match.price > ctx.shop_coin:
+                    _LOGGER.warning("skip due to max quantity: %s", match)
+                    continue                    
 
                 _LOGGER.info("exchange: %s", match)
                 action.tap(pos)
                 ctx.shop_coin -= match.price
-                remains.remove(match)
+                if not found_missing:
+                    remains.remove(match)
                 ctx.items.put(match.id, 1)
                 #tmpl, _ = action.wait_image(
                 #    templates.SINGLE_MODE_SHOP_USE_CONFIRM_BUTTON,
