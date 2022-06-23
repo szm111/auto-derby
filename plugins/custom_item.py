@@ -31,14 +31,14 @@ class Plugin(auto_derby.Plugin):
                         return 0
                     elif value>50:
                         return 100
-                    elif ctx.items.get(self.id).quantity >= 1:
+                    elif ctx.items.get(self.id).quantity >= 2:
                         return 0
                     else:
                         return 50
                         
                 # All efficient books
                 if self.id <=15 and self.id >= 6:
-                    return 100
+                    return 200
                 elif self.id <= 5:
                     return 0
                     
@@ -151,8 +151,8 @@ class Plugin(auto_derby.Plugin):
                     return True
                 if self.id >= 24 and self.id <=41:
                     return True
-                if es.mood and not es.vitality and ctx.mood[0] < 1.05:
-                    return True
+                #if es.mood and not es.vitality and ctx.mood[0] < 1.05:
+                #    return True
                 if self.id == 19 and ctx.vitality <= 0.05:
                     return True
                 return super().should_use_directly(ctx)

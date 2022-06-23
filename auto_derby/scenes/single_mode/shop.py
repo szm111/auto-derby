@@ -137,7 +137,7 @@ class ShopScene(Scene):
             if static:
                 break
         _LOGGER.info(self.items)
-        terminal.pause("items")
+        #terminal.pause("items")
         if not self.items:
             _LOGGER.warning("not found any items")
             #terminal.pause("can't find item")

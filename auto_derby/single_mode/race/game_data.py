@@ -273,8 +273,8 @@ def _find_by_race_menu_item(ctx: Context, img: PIL.Image.Image) -> Iterator[Race
         LOGGER.info("image match: %s", i)
         yield i
         match_count += 1
-    if not match_count:
-        raise ValueError("_find_by_race_menu_item: no race match spec: %s", full_spec)
+    #if not match_count:
+    #    raise ValueError("_find_by_race_menu_item: no race match spec: %s", full_spec)
 
 
 def _menu_item_bbox(

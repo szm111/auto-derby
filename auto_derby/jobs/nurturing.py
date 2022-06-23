@@ -83,6 +83,7 @@ def _handle_shop(ctx: Context, cs: CommandScene):
     cs.enter(ctx)
     if any(i.should_use_directly(ctx) for i in cart_items):
         _handle_item_list(ctx, cs)
+        cs.recognize(ctx)
     return
 
 
@@ -128,6 +129,7 @@ class _CommandPlan:
             scene = ItemMenuScene.enter(ctx)
             remains = scene.use_items(ctx, self.items)
             if remains:
+                LOGGER.info("not found items", remains)
                 ctx.do_recognize = True
                 raise ItemNotFound()
         self.command.execute(ctx)
@@ -157,11 +159,10 @@ def _handle_turn(ctx: Context):
         
     if ctx.items_last_updated_turn == 0:
         _handle_item_list(ctx, scene)
-        
+    if ctx.turn_count_v2() in [43,55]:
+        _handle_skill(ctx, scene, True)        
     if ctx.turn_count_v2() in [22,31,55]:
         _handle_skill(ctx, scene)
-    if ctx.turn_count_v2() in [43]:
-        _handle_skill(ctx, scene, True)
     ctx.next_turn()
     LOGGER.info("context: %s", ctx)
     for i in ctx.items:
@@ -175,8 +176,11 @@ def _handle_turn(ctx: Context):
         LOGGER.info("score:\t%2.2f\t%s;%s", cp.score, cp.command.name(), cp.explain())
     try:
         command_plans[0].execute(ctx)
-    except (RaceTurnsIncorrect, ItemNotFound):
-        _handle_turn(ctx)
+    except (RaceTurnsIncorrect, ItemNotFound, ValueError):
+        ctx.fail_count += 1
+        ctx.scene = scenes.UnknownScene()
+        time.sleep(2.0)
+        #_handle_turn(ctx)
 
 
 class _ActionContext:

@@ -337,6 +337,7 @@ class Context:
         self.default_running_style = RuningStyle.LEAD
         self.previous_running_style = None
         self.disable_shopping_on_race_day = False
+        self.fail_count = 0
         
         self.skills = list([])
 

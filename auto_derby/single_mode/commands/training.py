@@ -29,6 +29,9 @@ class TrainingCommand(Command):
         if current_training.type != self.training.type:
             action.tap((x, y))
             time.sleep(0.1)
+        current_training = Training.from_training_scene_v2(ctx, template.screenshot())
+        if current_training.failure_rate > 0.35 and ctx.fail_count < 3:
+            raise ValueError()
         action.tap((x, y))
         ctx.training_history.append(ctx, current_training)
         UnknownScene.enter(ctx)

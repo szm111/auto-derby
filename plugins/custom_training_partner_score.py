@@ -14,7 +14,10 @@ class Partner(single_mode.training.Partner):
     def score(self, ctx: single_mode.Context) -> float:
         ret = super().score(ctx)
         if self.type != self.TYPE_SPEED:
-            return 0
+            if self.type == self.TYPE_STAMINA and self.has_hint:
+                return 30
+            else:
+                return 0
         return ret
 
 

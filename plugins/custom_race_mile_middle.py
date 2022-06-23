@@ -18,6 +18,7 @@ _ACTION_PICK = 4
 _DEFAULT_ACTION = _ACTION_BAN
 
 _RULES: Dict[Tuple[int, Text], int] = {
+    #(13, "函館ジュニアステークス"): _ACTION_PICK,
     (15, "新潟ジュニアステークス"): _ACTION_PICK,
     (16, "札幌ジュニアステークス"): _ACTION_PICK,
     (18, "サウジアラビアロイヤルカップ"): _ACTION_PICK,
@@ -27,13 +28,12 @@ _RULES: Dict[Tuple[int, Text], int] = {
     (23, "ホープフルステークス"): _ACTION_PICK,
     (24, "京成杯"): _ACTION_PICK,
     (26, "共同通信杯"): _ACTION_PICK,
+    #(28, "チューリップ賞"): _ACTION_PICK,
     (28, "弥生賞"): _ACTION_PICK,
     (29, "スプリングステークス"): _ACTION_PICK,
     #(30, "桜花賞"): _ACTION_PICK,
     (30, "皐月賞"): _ACTION_PICK,
-    #(31, "青葉賞"): _ACTION_PICK,
     (32, "NHKマイルカップ"): _ACTION_PICK,
-    #(33, "オークス"): _ACTION_PICK,
     (33, "東京優駿（日本ダービー）"): _ACTION_PICK,
     (34, "鳴尾記念"): _ACTION_PICK,
     (36, "ラジオNIKKEI賞"): _ACTION_PICK,
@@ -41,21 +41,22 @@ _RULES: Dict[Tuple[int, Text], int] = {
     (38, "小倉記念"): _ACTION_PICK,
     (40, "紫苑ステークス"): _ACTION_PICK,
     (41, "オールカマー"): _ACTION_PICK,
-    (43, "菊花賞"): _ACTION_PICK,
-    #(43, "秋華賞"): _ACTION_PICK,
+    #(43, "菊花賞"): _ACTION_PICK,
+    (43, "秋華賞"): _ACTION_PICK,
     (44, "エリザベス女王杯"): _ACTION_PICK,
     (45, "マイルチャンピオンシップ"): _ACTION_PICK,
-    (47, "有馬記念"): _ACTION_PICK,
-    #(47, "東京大賞典"): _ACTION_PICK,
+    #(47, "有馬記念"): _ACTION_PICK,
+    #(47, "阪神カップ"): _ACTION_PICK,
     (48, "日経新春杯"): _ACTION_PICK,
     (49, "アメリカJCC"): _ACTION_PICK,
     (51, "中山記念"): _ACTION_PICK,
     (52, "金鯱賞"): _ACTION_PICK,
     (53, "大阪杯"): _ACTION_PICK,
-    #(54, "阪神ウマ娘ステークス"): _ACTION_PICK,
-    (55, "天皇賞（春）"): _ACTION_PICK,
-    #(55, "福島ウマ娘ステークス"): _ACTION_PICK,
+    #(53, "高松宮記念"): _ACTION_PICK,
+    #(55, "天皇賞（春）"): _ACTION_PICK,
+    (55, "マイラーズカップ"): _ACTION_PICK,
     (56, "ヴィクトリアマイル"): _ACTION_PICK,
+    #(56, "京王杯スプリングカップ"): _ACTION_PICK,
     (58, "安田記念"): _ACTION_PICK,
     (59, "宝塚記念"): _ACTION_PICK,
     (60, "函館記念"): _ACTION_PICK,
@@ -66,8 +67,8 @@ _RULES: Dict[Tuple[int, Text], int] = {
     (67, "天皇賞（秋）"): _ACTION_PICK,
     (69, "ジャパンカップ"): _ACTION_PICK,
     (70, "中日新聞杯"): _ACTION_PICK,
-    (71, "有馬記念"): _ACTION_PICK,
-    #(71, "東京大賞典"): _ACTION_PICK,
+    #(71, "有馬記念"): _ACTION_PICK,
+    #(71, "阪神カップ"): _ACTION_PICK,
 }
 
 
@@ -90,7 +91,7 @@ class Plugin(auto_derby.Plugin):
                 elif action == _ACTION_MORE:
                     ret += 5
                 elif action == _ACTION_PICK:
-                    ret += 200
+                    ret += 100
                 return ret
 
         auto_derby.config.single_mode_race_class = Race
