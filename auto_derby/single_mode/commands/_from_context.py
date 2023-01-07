@@ -33,7 +33,11 @@ def from_context(ctx: Context) -> Iterator[Command]:
             yield RaceCommand(i)
     if max_race_score > 15:
         return
-
+        
+    if ctx.is_ura:
+        ctx.go_out_options = ()
+        scene.recognize(ctx)
+    
     if scene.has_health_care:
         yield HealthCareCommand()
     if ctx.is_summer_camp:

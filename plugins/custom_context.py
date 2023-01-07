@@ -7,12 +7,13 @@ class Context(single_mode.Context):
     def __init__(self) -> None:
         super().__init__()
         # Running style for distance longer than 2600
-        self.long_distance_style = RuningStyle.LEAD
+        self.long_distance_style = RuningStyle.MIDDLE
         
         # Default Running Style
-        self.default_running_style = RuningStyle.LEAD
+        self.default_running_style = RuningStyle.LAST
         # Do not handle item and go shopping on race day.
         self.disable_shopping_on_race_day = True
+        self.is_ura = False
 
 
 class Plugin(auto_derby.Plugin):

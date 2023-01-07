@@ -183,6 +183,9 @@ def _find_by_spec(
             continue
         if not _match_scenario(ctx, i):
             continue
+        if ctx.turn_count() in [44,68]:
+            if i.grade == Race.GRADE_G1 and i.fan_counts[0] == no1_fan_count:
+                yield i
         if full_spec == (
             i.stadium,
             i.ground,

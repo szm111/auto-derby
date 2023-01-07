@@ -153,7 +153,7 @@ class ShopScene(Scene):
             for match, pos in _recognize_menu(template.screenshot()):
                 found_missing = False
                 if match not in remains:
-                    if match not in item_list:
+                    if match not in item_list and match.id  > 15:
                         continue
                     else:
                         found_missing = True
@@ -172,6 +172,9 @@ class ShopScene(Scene):
                 if not found_missing:
                     remains.remove(match)
                 ctx.items.put(match.id, 1)
+                if match.id <= 15 or match.id == 37:
+                    ctx.items.remove(match.id, 1)
+                    ctx.item_history.append(ctx, match)
                 #tmpl, _ = action.wait_image(
                 #    templates.SINGLE_MODE_SHOP_USE_CONFIRM_BUTTON,
                 #    templates.CLOSE_BUTTON,
@@ -189,7 +192,7 @@ class ShopScene(Scene):
                 #    ctx.items.put(match.id, 1)
                 # wait animation
                 action.wait_image_stable(templates.RETURN_BUTTON)
-                return _exchange_visible_items()
+                #return _exchange_visible_items()
 
         while self._scroll.next():
             for i in remains:

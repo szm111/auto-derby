@@ -23,7 +23,7 @@ def compute(ctx: Context, trn: Training) -> float:
             (600, 0.8),
             (900, 0.7),
             (1100, 0.5),
-            (1120, 0.1),
+            (1150, 0.1),
         ),
     )
     if ctx.speed < t_now / 24 * 300:
@@ -40,7 +40,7 @@ def compute(ctx: Context, trn: Training) -> float:
                 ctx.speed / 900 * 0.6 + 0.1 * ctx.date[0] if ctx.speed > 900 else 0.6,
             ),
             (900, ctx.speed / 900 * 0.3),
-            (1120, 0.1),
+            (1150, 0.1),
         ),
     )
     pow_ = mathtools.integrate(
@@ -51,7 +51,7 @@ def compute(ctx: Context, trn: Training) -> float:
             (300, 0.2 + ctx.speed / 600),
             (600, 0.1 + ctx.speed / 900),
             (900, ctx.speed / 900 / 3),
-            (1120, 0.1),
+            (1150, 0.1),
         ),
     )
     gut = mathtools.integrate(
@@ -63,11 +63,11 @@ def compute(ctx: Context, trn: Training) -> float:
             (400, 0.6 * ctx.speed / 400),
             (600, 0.2 * ctx.speed / 400),
             (900, 0.1 * ctx.speed / 400),
-            (1120, 0.1),
+            (1150, 0.1),
         ),
     )
-    if ctx.guts > 300 and ctx.speed < min(1120, 400 / 24 * t_now):
-        gut *= 0.5
+    #if ctx.guts > 300 and ctx.speed < min(1120, 400 / 24 * t_now):
+    #    gut *= 0.5
 
     wis = mathtools.integrate(
         ctx.wisdom,
@@ -77,17 +77,17 @@ def compute(ctx: Context, trn: Training) -> float:
             (300, 0.8),
             (600, 0.5),
             (900, 0.3),
-            (1120, 0.1),
+            (1150, 0.1),
         ),
     )
-    if ctx.wisdom > 300 and ctx.speed < min(1120, 300 / 24 * t_now):
-        wis *= 0.1
+    #if ctx.wisdom > 300 and ctx.speed < min(1120, 300 / 24 * t_now):
+    #    wis *= 0.1
 
     vit = mathtools.clamp(trn.vitality, 0, 1 - ctx.vitality) * ctx.max_vitality * 0.6
-    if ctx.date[1:] in ((6, 1),):
-        vit *= 1.2
-    if ctx.date[1:] in ((6, 2), (7, 1), (7, 2), (8, 1)):
-        vit *= 1.5
+    #if ctx.date[1:] in ((6, 1),):
+    #    vit *= 1.2
+    #if ctx.date[1:] in ((6, 2), (7, 1), (7, 2), (8, 1)):
+    #    vit *= 1.5
     if ctx.date[0] == 4:
         vit *= 0.3
 

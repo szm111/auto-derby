@@ -48,8 +48,13 @@ class GoOutCommand(Command):
                     if i.type == self.option.type
                 )
             action.tap(self.option.position)
+            if self.option.type == self.option.TYPE_GROUP:
+                time.sleep(0.5)
+                action.tap(self.option.position_second)
         if self.option.total_event_count > 0:
             self.option.current_event_count += 1
+            if self.option.total_event_count < 2:
+                ctx.go_out_options = ()
         return
 
     def score(self, ctx: Context) -> float:

@@ -25,7 +25,10 @@ class SummerRestCommand(Command):
 def default_score(ctx: Context) -> float:
     class _SummerGoOutOption(go_out.g.option_class):
         def vitality(self, ctx: Context) -> float:
-            return 10 / ctx.max_vitality
+            if ctx.is_ura:
+                return 40 / ctx.max_vitality
+            else:
+                return 10 / ctx.max_vitality
 
         def mood_rate(self, ctx: Context) -> float:
             return 1

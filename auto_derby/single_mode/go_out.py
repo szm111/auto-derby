@@ -29,6 +29,7 @@ class Option:
     TYPE_MAIN = 1
     # support card
     TYPE_SUPPORT = 2
+    TYPE_GROUP = 3
 
     @classmethod
     def new(cls) -> Option:
@@ -41,14 +42,16 @@ class Option:
         self.position: Tuple[int, int] = (0, 0)
         self.bbox: Tuple[int, int, int, int] = (0, 0, 0, 0)
         self.name = ""
+        self.position_second = (0,0)
 
     def __str__(self) -> Text:
         type_text = {
             Option.TYPE_MAIN: "MAIN",
             Option.TYPE_SUPPORT: "SUPPORT",
+            Option.TYPE_GROUP : "GROUP",
             Option.TYPE_UNDEFINED: "UNDEFINED",
         }.get(self.type, "UNKNOWN")
-        return f"Option<name={self.name},type={type_text},event={self.current_event_count}/{self.total_event_count},pos={self.position}>"
+        return f"Option<name={self.name},type={type_text},event={self.current_event_count}/{self.total_event_count},pos={self.position},pos={self.position_second}>"
 
     def disabled(self, ctx: Context) -> bool:
         if (
@@ -120,12 +123,12 @@ class Option:
         ret += t.score(ctx)
 
         # try finish all events
-        if self.type == self.TYPE_SUPPORT:
+        if self.type != self.TYPE_MAIN:
             ret += mathtools.interpolate(
                 ctx.turn_count(),
                 (
-                    (0, 0),
-                    (48, 5),
+                    (0, 10),
+                    (48, 15),
                     (72, 20),
                     (78, 30),
                 ),

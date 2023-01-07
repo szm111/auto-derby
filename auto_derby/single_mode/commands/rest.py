@@ -25,7 +25,10 @@ class RestCommand(Command):
 def default_score(ctx: Context) -> float:
     t = Training.new()
     if ctx.turn_count_v2()>15:
-        t.vitality = 30 / ctx.max_vitality
+        if ctx.is_ura:
+            t.vitality = 30 / ctx.max_vitality
+        else:
+            t.vitality = 10 / ctx.max_vitality
     else:
         t.vitality = 50 / ctx.max_vitality
     return t.score(ctx)

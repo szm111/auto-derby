@@ -37,10 +37,11 @@ class Plugin(auto_derby.Plugin):
                         return 50
                         
                 # All efficient books
-                if self.id <=15 and self.id >= 6:
+                if self.id <=15:
                     return 200
-                elif self.id <= 5:
-                    return 0
+                    
+                if self.id == 42:
+                    return 100
                     
                 if self.id == 53:
                     return 0
@@ -72,7 +73,7 @@ class Plugin(auto_derby.Plugin):
                     
                 # Only buy speed training level. 
                 if es.training_levels:
-                    if self.id ==37:
+                    if self.id ==37 and ctx.training_levels[TrainingType.SPEED] <5:
                         return 100
                     else:
                         return 0
@@ -153,8 +154,8 @@ class Plugin(auto_derby.Plugin):
                     return True
                 #if es.mood and not es.vitality and ctx.mood[0] < 1.05:
                 #    return True
-                if self.id == 19 and ctx.vitality <= 0.05:
-                    return True
+                #if self.id == 19 and ctx.vitality <= 0.05:
+                #    return True
                 return super().should_use_directly(ctx)
 
         auto_derby.config.single_mode_item_class = Item

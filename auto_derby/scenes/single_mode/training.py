@@ -223,7 +223,10 @@ def _recognize_red_effect(img: Image) -> int:
     text = ocr.text(image_from_array(text_img))
     if not text:
         return 0
-    return int(text.lstrip("+"))
+    try:
+        return int(text.lstrip("+"))
+    except:
+        return 0
 
 
 def _recognize_level(rgb_color: Tuple[int, ...]) -> int:

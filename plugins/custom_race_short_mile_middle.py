@@ -24,6 +24,7 @@ _RULES: Dict[Tuple[int, Text], int] = {
     (18, "サウジアラビアロイヤルカップ"): _ACTION_PICK,
     (19, "アルテミスステークス"): _ACTION_PICK,
     (20, "デイリー杯ジュニアステークス"): _ACTION_PICK,
+    #(21, "京都ジュニアステークス"): _ACTION_PICK,
     (22, "朝日杯フューチュリティステークス"): _ACTION_PICK,
     (23, "ホープフルステークス"): _ACTION_PICK,
     (24, "京成杯"): _ACTION_PICK,

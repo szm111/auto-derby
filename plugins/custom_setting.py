@@ -6,9 +6,12 @@ class Plugin(auto_derby.Plugin):
         auto_derby.plugin.install("afk")
         #auto_derby.plugin.install("custom_race_short_mile_middle")
         auto_derby.plugin.install("custom_race_mile_middle_long")
+        #auto_derby.plugin.install("custom_race_middle_long")
         auto_derby.plugin.install("custom_item")
         auto_derby.plugin.install("custom_context")
         auto_derby.plugin.install("custom_training_partner_score")
+        #auto_derby.plugin.install("SSR樫本理子")
+        auto_derby.plugin.install("皇团")
         # TODO: Add a plugin for setting skills
         # For now. You can set them in
         # auto_derby/data/single_mode_skills.jsonl

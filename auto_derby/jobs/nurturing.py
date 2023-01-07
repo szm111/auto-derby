@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import logging
 import time
-from auto_derby.single_mode.commands import RaceCommand
+from auto_derby.single_mode.commands import RaceCommand, TrainingCommand
 from typing import Callable, Iterator, List, Text, Tuple, Union
 
 from .. import action, config, template, templates, terminal, scenes
@@ -77,7 +77,9 @@ def _handle_shop(ctx: Context, cs: CommandScene):
         LOGGER.info("score:\t%2.2f/%2.2f:\t%s\t%s", s, es, i, status)
     remain_size = scene.exchange_items(ctx, cart_items)
     if remain_size < len(cart_items):
+        time.sleep(2.0)
         action.wait_tap_image(templates.SINGLE_MODE_CONFIRM_BUTTON)
+        time.sleep(2.0)
         action.wait_tap_image(templates.CLOSE_BUTTON)
 
     cs.enter(ctx)
@@ -103,6 +105,19 @@ def _handle_item_list(ctx: Context, cs: CommandScene):
     
 def _handle_skill(ctx: Context, cs: CommandScene, blue_onlye = False):
     scene = SkillMenuScene.enter(ctx)
+    num = action.count_image(
+            templates.SINGLE_MODE_RACE_START_BUTTON,
+            templates.SINGLE_MODE_CONTINUOUS_RACE_TITLE,
+            )
+        
+    while(num > 0):
+        ctx.scene = scenes.UnknownScene()
+        scene = CommandScene.enter(ctx)
+        scene = SkillMenuScene.enter(ctx)
+        num = action.count_image(
+            templates.SINGLE_MODE_RACE_START_BUTTON,
+            templates.SINGLE_MODE_CONTINUOUS_RACE_TITLE,
+            )
     scene.learn_skill(ctx, blue_onlye)
     cs.enter(ctx)
     return
@@ -152,7 +167,7 @@ def _handle_turn(ctx: Context):
         if isinstance(turn_command, RaceCommand):
             handle_shop = False
             break
-            
+
     if not ctx.disable_shopping_on_race_day or handle_shop or ctx.do_shopping:
         _handle_item_list(ctx, scene)
         _handle_shop(ctx, scene)
@@ -161,10 +176,10 @@ def _handle_turn(ctx: Context):
         _handle_item_list(ctx, scene)
     if ctx.turn_count_v2() in [43,55]:
         _handle_skill(ctx, scene, True)        
-    if ctx.turn_count_v2() in [22,31,55]:
+    if ctx.turn_count_v2() in [22,31,43, 55]:
         _handle_skill(ctx, scene)
-    ctx.next_turn()
-    LOGGER.info("context: %s", ctx)
+    #if ctx.turn_count_v2() in [15,25,49]:
+    #    ctx.go_out_options = ()
     for i in ctx.items:
         LOGGER.info("item:\t#%s\tx%s\t%s", i.id, i.quantity, i.name)
     command_plans = sorted(
@@ -174,12 +189,25 @@ def _handle_turn(ctx: Context):
     )
     for cp in command_plans:
         LOGGER.info("score:\t%2.2f\t%s;%s", cp.score, cp.command.name(), cp.explain())
+    if ((ctx.turn_count() >= 48 or ctx.is_summer_camp) and (not isinstance(command_plans[0].command, RaceCommand)) and (command_plans[0].score < 40 or (isinstance(command_plans[0].command,TrainingCommand) and len(command_plans[0].command.training.partners)<2)) and ctx.items.get(42).quantity>=1 and ctx.mood[0] > 1.0 and ctx.items.get(45).quantity>=1 and (ctx.items.get(50).quantity>=1 or ctx.items.get(17).quantity>=1 or ctx.items.get(18).quantity>=1 or ctx.items.get(19).quantity>=1 or ctx.vitality >= 0.5)):
+        scene = ItemMenuScene.enter(ctx)
+        remains = scene.use_items(ctx, [ctx.items.get(42)])
+        ctx.scene = scenes.UnknownScene()
+        return
+    ctx.next_turn()
+    LOGGER.info("context: %s", ctx)
     try:
         command_plans[0].execute(ctx)
     except (RaceTurnsIncorrect, ItemNotFound, ValueError):
         ctx.fail_count += 1
         ctx.scene = scenes.UnknownScene()
         time.sleep(2.0)
+    except:
+        ctx.fail_count += 1
+        ctx.scene = scenes.UnknownScene()
+        time.sleep(2.0)
+        if ctx.fail_count >= 5:
+            raise Exception('failed too many times')
         #_handle_turn(ctx)
 
 
